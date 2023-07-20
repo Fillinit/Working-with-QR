@@ -1,0 +1,161 @@
+{% extends 'wrapper.html' %}
+{% load static %}
+
+{% block content %}
+
+<header class="header container">
+        <div class="header-left">
+            <div class="header-left__btn"><i class="fa-solid fa-bars"></i></div>
+            <div class="header-left__brand"><a href="{% url 'mainapp:index' %}"><img src="{% static '/img/tagosaur.png' %}" alt="logo"></a></div>
+        </div>
+        <div class="header-right">
+            <div class="header-right__bell">
+                <i class="fa-solid fa-bell"></i><span>0</span>
+            </div>
+            <div class="header-right__user"><i class="fa-solid fa-user"></i></div>
+        </div>
+    </header>
+    <!-- Header -->
+    <!--Main-->
+    <main class="main container">
+        {% include 'left_side_menu.html' %}
+        <div class="content">
+            <!-- Orders-->
+            <div class="packs">
+                <h2 class="section-title">Заказы на маркировку</h2>
+                <div class="packs-settings">
+                    <button class="btn"><img src="{% static 'img/restart.svg' %}" alt="restart"></button>
+                    <button class="btn"><img src="{% static 'img/reset.svg' %}" alt="reset"></button>
+                    <button class="btn"><img src="{% static 'img/refresh.svg' %}" alt="refresh"></button>
+                    <select>
+                        <option value="active">Активные заказы</option>
+                        <option value="closed">Завершенные заказы</option>
+                    </select>
+                </div>
+                <div class="orders-search">
+                    <input type="text" placeholder="Введите текст для поиска">
+                </div>
+                <table class="orders-table">
+                    <tr class="orders-table__items">
+                        <th class="width-10px">
+                            <div class="grow-02"><input type="checkbox"></div>
+                        </th>
+                        <th>
+                            <div class="grow-2">№ <i class="fa-solid fa-arrow-up"></i> <i
+                                    class="fa-solid fa-filter"></i></div>
+                        </th>
+                        <th>
+                            <div class="grow-2">ДАТА <i class="fa-solid fa-filter"></i></div>
+                        </th>
+                        <th>
+                            <div class="grow-2">КОНТРАКТ <i class="fa-solid fa-filter"></i></div>
+                        </th>
+                        <th>
+                            <div class="grow-4">КОММЕНТАРИЙ <i class="fa-solid fa-filter"></i></div>
+                        </th>
+                        <th>
+                            <div class="grow-1">ВУ <i class="fa-solid fa-filter"></i></div>
+                        </th>
+                        <th>
+                            <div class="grow-1">ЗУ <i class="fa-solid fa-filter"></i></div>
+                        </th>
+                        <th>
+                            <div class="grow-1">ПУ <i class="fa-solid fa-filter"></i></div>
+                        </th>
+                        <th>
+                            <div class="grow-1">НУ <i class="fa-solid fa-filter"></i></div>
+                        </th>
+                        <th>
+                            <div class="grow-1">ВМУ <i class="fa-solid fa-filter"></i></div>
+                        </th>
+                        <th>
+                            <div class="grow-1">ЗМУ <i class="fa-solid fa-filter"></i></div>
+                        </th>
+                        <th>
+                            <div class="grow-1">ПМУ <i class="fa-solid fa-filter"></i></div>
+                        </th>
+                        <th>
+                            <div class="grow-1">НМУ <i class="fa-solid fa-filter"></i></div>
+                        </th>
+                    </tr>
+                    <tr class="orders-table__item">
+                        <td class="width-10px">
+                            <div class="grow-02"><input type="checkbox"></div>
+                        </td>
+                        <td><a href="./order.html">3406</a></td>
+                        <td>12/6/2022</td>
+                        <td>TIR_SAM</td>
+                        <td>Полные мешки: КМ 83500, упаковок 4190, мешков 535</td>
+                        <td>4,190</td>
+                        <td>4,190</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>535</td>
+                        <td>535</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                    <tr class="orders-table__item">
+                        <td class="width-10px">
+                            <div class="grow-02"><input type="checkbox"></div>
+                        </td>
+                        <td><a href="./order.html">3406</a></td>
+                        <td>12/6/2022</td>
+                        <td>TIR_SAM</td>
+                        <td>Полные мешки: КМ 83500, упаковок 4190, мешков 535</td>
+                        <td>4,190</td>
+                        <td>4,190</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>535</td>
+                        <td>535</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                    <tr class="orders-table__item">
+                        <td class="width-10px">
+                            <div class="grow-02"><input type="checkbox"></div>
+                        </td>
+                        <td>3406</td>
+                        <td>12/6/2022</td>
+                        <td>TIR_SAM</td>
+                        <td>Полные мешки: КМ 83500, упаковок 4190, мешков 535</td>
+                        <td>4,190</td>
+                        <td>4,190</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>535</td>
+                        <td>535</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                </table>
+                <div class="orders-table__btns">
+                    <div class="orders-table__btns-right">
+                        <button class="btn"><i class="fa-solid fa-arrow-left"></i></button>
+                        <span>1</span>
+                        <button class="btn"><i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                    <div class="orders-table__btns-left">
+                        <span>PAGE SIZE </span>
+                        <select>
+                            <option>10</option>
+                            <option>10</option>
+                            <option>10</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!-- /Orders-->
+        </div>
+    </main>
+
+
+    <footer class="container footer">
+        Build <span>6/28/2023</span> <span>3:52:30 PM</span>
+    </footer>
+
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+{% endblock %}

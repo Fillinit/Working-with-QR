@@ -1,0 +1,458 @@
+/* core styles */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 100%;
+    padding: 0 80px;
+}
+
+.section-title {
+    font-size: 24px;
+    color: rgba(0, 0, 0, 0.8);
+    font-weight: 300;
+}
+
+.bg-green {
+    background: green;
+    color: #fff;
+}
+
+.bg-green span {
+    color: #fff;
+}
+
+.text-end {
+    text-align: end;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.opacity-05 {
+    opacity: 0.5;
+}
+
+.width-100 {
+    width: 100%;
+    flex-basis: 100%;
+}
+
+/* header */
+.header {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.header-left,
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.header-left__btn {
+    font-size: 24px;
+    margin-right: 20px;
+    padding-right: 20px;
+    border-right: 1px solid rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+.header-left__brand a {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.header-right__bell {
+    padding: 5px 10px;
+    background-color: #008c39;
+    color: #fff;
+    border-radius: 55px;
+}
+
+.header-right__bell span {
+    margin-left: 10px;
+}
+
+.header-right__user {
+    margin-left: 10px;
+    font-size: 24px;
+    color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+/* main */
+.main {
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+    padding-bottom: 200px;
+}
+
+.sidebar {
+    flex-basis: 20%;
+}
+
+.sidebar div {
+    border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.sidebar-title {
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 14px;
+    background-color: rgba(0, 0, 0, 0.85);
+    padding: 10px 20px;
+    font-weight: 500;
+}
+
+.sidebar-item {
+    padding: 10px 20px;
+    font-weight: 500;
+    font-size: 14px;
+    transition: 0.3s;
+    border: 3px solid #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    color: rgba(0, 0, 0, 1);
+    width: 100%;
+}
+
+.sidebar-item:hover {
+    background-color: #28A745;
+    color: #fff;
+}
+
+.section-subtitle {
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.5);
+    margin-top: 10px;
+}
+
+.orders-table__items {
+    width: 100%;
+    background-color: #F7F7F7;
+
+}
+
+.orders-table__items th {
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    padding: 5px 10px;
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.7);
+    font-weight: 500;
+}
+
+.width-10px {
+    width: 10px;
+}
+
+.width-20px {
+    width: 20px;
+}
+
+.orders-table__items th div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-transform: uppercase;
+}
+
+.grow-02 {
+    width: 10px;
+}
+
+.grow-4 {
+    flex-grow: 4;
+}
+
+.grow-2 {
+    flex-grow: 2;
+}
+
+.grow-1 {
+    flex-grow: 1;
+}
+
+.orders-table__item td {
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.orders-table__item td a {
+    text-decoration: none;
+    color: #000;
+}
+
+.orders-table__btns {
+    width: 100%;
+    padding: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+    border-right: 1px solid rgba(0, 0, 0, 0.5);
+    border-left: 1px solid rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.orders-table__btns-right button {
+    padding: 7px 15px;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    background: none;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.orders-table__btns-right span {
+    background-color: #008c39;
+    color: #fff;
+    padding: 7px 15px;
+    border-radius: 5px;
+}
+
+.orders-table__btns-left select {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 20px;
+}
+
+.operation {
+    padding-bottom: 200px;
+    width: 100%;
+    padding-left: 20px;
+}
+
+.operation-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.operation-title__btns {
+    display: flex;
+
+}
+
+.operation-title__btns .btn {
+    width: 30px;
+    background: none;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.operation-title__btns .btn img {
+    width: 20px;
+    background: none;
+}
+
+.operation-title__btns-rights .footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background: #008c39;
+    color: #fff;
+}
+
+.operation-title__btns-rights {
+    margin-left: 10px;
+}
+
+.operation-title__btns-rights .btn {
+    padding: 7px;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    background: none;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.operation-bar {
+    padding: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.operation-info {
+    display: flex;
+    width: 100%;
+}
+
+.operation-info__item {
+    flex-basis: 25%;
+    padding: 0 10px;
+}
+
+.operation-info__subtitle {
+    color: rgba(0, 0, 0, 0.2);
+}
+
+.operation-btns {
+    margin-top: 20px;
+    display: flex;
+}
+
+.operation-btns .btn {
+    list-style: none;
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+}
+.lastPack-tab,
+.lastKm-tab,
+.svoystvo-tab,
+.docGis-tab,
+.shtrix-tab,
+.kmupd-tab,
+.operation-tab__km,
+.upakovka-tab__km,
+.merchandise-tab__km,
+.upv-tab__km {
+    border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.svoystvo-tab__km-settings,
+.operation-tab__km-settings,
+.upakovka-tab__km-settings,
+.merchandise-tab__km-settings,
+.upv-tab__km-settings {
+    padding-top: 10px;
+    padding-right: 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.svoystvo-tab__km-settings .btn,
+.operation-tab__km-settings .btn,
+.upakovka-tab__km-settings .btn,
+.merchandise-tab__km-settings .btn,
+.upv-tab__km-settings .btn {
+    width: 30px;
+    background: none;
+    border-left: none;
+    border-top: none;
+    border-bottom: none;
+    border-right: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.svoystvo-tab__km-settings .btn img,
+.operation-tab__km-settings .btn img,
+.upv-tab__km-settings .btn img,
+.upakovka-tab__km-settings .btn img,
+.merchandise-tab__km-settings .btn img {
+    margin-right: 10px;
+    width: 20px;
+    cursor: pointer;
+}
+
+.svoystvo-tab__km-settings select,
+.operation-tab__km-settings select,
+.upv-tab__km-settings select,
+.upakovka-tab__km-settings select,
+.merchandise-tab__km-settings select {
+    margin-left: 10px;
+    padding: 5px;
+    border: none;
+    outline: none;
+}
+
+.operation-tab__km-input,
+.upakovka-tab__km-input,
+.merchandise-tab__km-input {
+    width: 100%;
+    padding-left: 10px;
+}
+
+.operation-tab__km-input input,
+.upakovka-tab__km-input input,
+.merchandise-tab__km-input input {
+    width: 50%;
+    padding: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    outline: none;
+}
+
+.merchandise-tab__km-input input:focus {
+    border-color: #5189d3;
+}
+
+.upakovka-tab__km-input input:focus {
+    border-color: #5189d3;
+}
+
+.operation-tab__km-input input:focus {
+    border-color: #5189d3;
+}
+
+.operation-tab__table,
+.upv-tab__table,
+.upakovka-tab__table,
+.merchandise-tab__table {
+    width: 100%;
+    margin-top: 10px;
+    border-collapse: collapse;
+}
+
+.operation-tab__data,
+.svoystvo-tab__data,
+.upv-tab__data,
+.upakovka-tab__data,
+.merchandise-tab__data {
+    padding: 10px 0;
+}
+
+.operation-tab__tableinfo,
+.upakovka-tab__tableinfo,
+.merchandise-tab__tableinfo {
+    padding: 10px 50px;
+    background: #d7e2f1;
+}
+
+.operation-tab__svoystvo {
+    padding: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.svoystvo-btns {
+    display: flex;
+}
+
+.svoystvo-btns .btn {
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    list-style: none;
+}
+
+.svoystvo-tab__table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background: #008c39;
+    color: #fff;
+}

@@ -1,0 +1,93 @@
+{% extends 'wrapper.html' %}
+{% load static %}
+
+{% block content %}
+
+<header class="header container">
+        <div class="header-left">
+            <div class="header-left__btn"><i class="fa-solid fa-bars"></i></div>
+            <div class="header-left__brand"><a href="{% url 'mainapp:index' %}"><img src="{% static '/img/tagosaur.png' %}" alt="logo"></a></div>
+        </div>
+        <div class="header-right">
+            <div class="header-right__bell">
+                <i class="fa-solid fa-bell"></i><span>0</span>
+            </div>
+            <div class="header-right__user"><i class="fa-solid fa-user"></i></div>
+        </div>
+    </header>
+    <!-- Header -->
+    <!--Main-->
+    <main class="main container">
+        {% include 'left_side_menu.html' %}
+        <div class="content">
+
+            <!-- code -->
+            <div class="code">
+                <h2 class="section-title">
+                    Marking codes (scan to find)
+                </h2>
+                <div class="code-settings">
+                    <button class="btn"><img src="{% static 'img/edit.svg' %}" alt="edit"></button>
+                    <button class="btn"><img src="{% static 'img/reset.svg' %}" alt="reset"></button>
+                    <button class="btn"><img src="{% static 'img/restart.svg' %}" alt="restart"></button>
+                </div>
+                <table class="code-table">
+                    <tr class="code-table__items">
+                        <th class="width-10px">
+                        </th>
+                        <th class="width-10px">
+                        </th>
+                        <th>
+                            <div class="grow-2">SSCC <i class="fa-solid fa-filter"></i></div>
+                        </th>
+                        <th>
+                            <div class="grow-2">order <i class="fa-solid fa-filter"></i></div>
+                        </th>
+                        <th>
+                            <div class="grow-4">Comment <i class="fa-solid fa-filter"></i></div>
+                        </th>
+                        <th>
+                            <div class="grow-1">Scanned <i class="fa-solid fa-filter"></i></div>
+                        </th>
+                        <th>
+                            <div class="grow-1">to be <i class="fa-solid fa-filter"></i></div>
+                        </th>
+                        <th class="width-10px">
+                            <div class="grow-1">level</div>
+                        </th>
+                        <th>
+                            <div class="grow-1">contract <i class="fa-solid fa-filter"></i></div>
+                        </th>
+                    </tr>
+                    <tr class="code-table__item">
+                        <td class="width-20px">
+                        </td>
+                        <td class="width-20px">
+                        </td>
+                        <td></td>
+                        <td><input type="number"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <div class="code-item__data">
+                    No data to display
+                </div>
+            </div>
+            <!-- /Code-->
+
+        </div>
+    </main>
+
+
+    <footer class="container footer">
+        Build <span>6/28/2023</span> <span>3:52:30 PM</span>
+    </footer>
+
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+{% endblock %}
