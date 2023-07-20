@@ -13,6 +13,10 @@ def orders(request):
     template = "mainapp/orders.html"
     return render(request, template)
 
+def orders_add(request):
+    template = "mainapp/add_order.html"
+    return render(request, template)
+
 
 def packaging(request):
     template = "mainapp/packaging.html"

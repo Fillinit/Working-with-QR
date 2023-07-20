@@ -1,0 +1,59 @@
+{% extends 'wrapper.html' %}
+{% load static %}
+
+{% block content %}
+
+<header class="header container">
+        <div class="header-left">
+            <div class="header-left__btn"><i class="fa-solid fa-bars"></i></div>
+            <div class="header-left__brand"><a href="{% url 'mainapp:index' %}"><img src="{% static '/img/tagosaur.png' %}" alt="logo"></a></div>
+        </div>
+        <div class="header-right">
+            <div class="header-right__bell">
+                <i class="fa-solid fa-bell"></i><span>0</span>
+            </div>
+            <div class="header-right__user"><i class="fa-solid fa-user"></i></div>
+        </div>
+    </header>
+    <!-- Header -->
+    <!--Main-->
+    <main class="main container">
+        {% include 'left_side_menu.html' %}
+        <div class="content">
+            <!-- Orders-->
+            <div class="packs">
+                <h2 class="section-title">Добавить маркировку</h2>
+                <div class="packs-settings">
+                    <button class="btn"><img src="{% static 'img/Plus.png' %}" alt="restart"></button>
+                    <button class="btn"><img src="{% static 'img/restart.svg' %}" alt="restart"></button>
+                    <button class="btn"><img src="{% static 'img/reset.svg' %}" alt="reset"></button>
+                    <button class="btn"><img src="{% static 'img/refresh.svg' %}" alt="refresh"></button>
+                    <select>
+                        <option value="active">Активные заказы</option>
+                        <option value="closed">Завершенные заказы</option>
+                    </select>
+                </div>
+                <div class="orders-search">
+                    <form action="{% url 'mainapp:index' %}" method="post" enctype="multipart/form-data">
+                        <input type="text" name="text_input_1" placeholder="Введите КОНТРАКТ">
+                        <input type="text" name="text_input_2" placeholder="Введите КОММЕНТАРИЙ">
+                        <input type="number" name="text_input_3" placeholder="Кол-во Мастер-Упковок">
+                        <input type="file" name="file_input" id="fileInput">
+                        <button type="submit" id="submitButton">Отправить</button>
+                    </form>
+                </div>
+
+            </div>
+            <!-- /Orders-->
+        </div>
+    </main>
+
+
+    <footer class="container footer">
+        Build <span>6/28/2023</span> <span>3:52:30 PM</span>
+    </footer>
+
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+{% endblock %}
