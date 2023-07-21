@@ -133,8 +133,13 @@
     width: 20px;
 }
 .mark-btns {
+    position: relative;
+    top: 1px;
     display: flex;
     justify-content: flex-start;
+}
+.mark-btn.active {
+    border-bottom: 1px solid #fff;
 }
 .mark-btn {
     cursor: pointer;
@@ -144,7 +149,6 @@
 }
 .mark-code {
     padding: 20px;
-    border: 1px solid rgba(0, 0, 0, 0.5);
 }
 .section-subtitle {
     text-transform: uppercase;
@@ -265,8 +269,17 @@
 }
 .mark-property {
     padding: 20px;
-    border: 1px solid rgba(0, 0, 0, 0.5);
 }
+.mark-content {
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    display: none;
+}
+.mark-content.active {
+    display: block;
+}
+
+
+
 .footer {
     position: fixed;
     bottom: 0;

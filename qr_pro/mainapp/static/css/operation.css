@@ -307,24 +307,19 @@
 .operation-btns {
     margin-top: 20px;
     display: flex;
+    position: relative;
+    top: 1px;
 }
 
 .operation-btns .btn {
     list-style: none;
     padding: 10px;
     border: 1px solid rgba(0, 0, 0, 0.5);
+    cursor: pointer;
 }
-.lastPack-tab,
-.lastKm-tab,
-.svoystvo-tab,
-.docGis-tab,
-.shtrix-tab,
-.kmupd-tab,
-.operation-tab__km,
-.upakovka-tab__km,
-.merchandise-tab__km,
-.upv-tab__km {
-    border: 1px solid rgba(0, 0, 0, 0.5);
+
+.operation-btns .btn.active {
+    border-bottom: 1px solid #fff;
 }
 
 .svoystvo-tab__km-settings,
@@ -432,20 +427,38 @@
 
 .svoystvo-btns {
     display: flex;
+    position: relative;
+    top: 1px;
 }
 
 .svoystvo-btns .btn {
     padding: 10px;
     border: 1px solid rgba(0, 0, 0, 0.5);
     list-style: none;
+    cursor: pointer;
+}
+.svoystvo-btns .btn.active {
+    border-bottom: 1px solid #fff;
 }
 
 .svoystvo-tab__table {
     width: 100%;
     border-collapse: collapse;
 }
-
-
+.operation-content {
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    display: none;
+}
+.operation-content.active {
+    display: block;
+}
+.svoystvo-content {
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    display: none;
+}
+.svoystvo-content.active {
+    display: block;
+}
 
 .footer {
     position: fixed;
