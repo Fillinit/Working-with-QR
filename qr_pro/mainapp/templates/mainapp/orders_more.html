@@ -1,0 +1,402 @@
+{% extends 'wrapper.html' %}
+{% load static %}
+
+{% block content %}
+<header class="header container">
+        <div class="header-left">
+            <div class="header-left__btn"><i class="fa-solid fa-bars"></i></div>
+            <div class="header-left__brand"><a href="{% url 'mainapp:index' %}"><img src="{% static 'img/tagosaur.png' %}" alt="logo"></a></div>
+        </div>
+        <div class="header-right">
+            <div class="header-right__bell">
+                <i class="fa-solid fa-bell"></i><span>0</span>
+            </div>
+            <div class="header-right__user"><i class="fa-solid fa-user"></i></div>
+        </div>
+</header>
+<main class="container main">
+        {% include 'left_side_menu.html' %}
+        <div class="content">
+            <div>
+                <h2 class="section-title"><span>Заказ на маркировку</span>{{ mark_Info.id }}</h2>
+                <div class="content-btns">
+                    <a href="{% url 'mainapp:orders_more' mark_Info.id %}">
+                        <button class="btn">
+                            <img src="{% static 'img/restart.svg' %}" alt="restart">
+                        </button>
+                    </a>
+                </div>
+            </div>
+            <div class="content-cards">
+                <div class="content-card">
+                    <h4 class="card-title">ЗАКАЗ</h4>
+                    <div class="content-card__item">
+                        <div class="card-subtitle">
+                            Дата
+                        </div>
+                        <div class="card-info">
+                            {{ mark_Info.date }}
+                        </div>
+                    </div>
+                    <div class="content-card__item">
+                        <div class="card-subtitle">
+                            Контракт
+                        </div>
+                        <div class="card-info">
+                            {{ mark_Info.contract }}
+                        </div>
+                    </div>
+                    <div class="content-card__item">
+                        <div class="card-subtitle">
+                            Комментарий
+                        </div>
+                        <div class="card-info">
+                            {{ mark_Info.comment }}
+                        </div>
+                    </div>
+                </div>
+                <div class="content-card card2">
+                    <h4 class="card-title">УПАКОВКИ</h4>
+                    <div class="content-card__item">
+                        <div class="card-subtitle">
+                            ВСЕГО УПАКОВОК (ВУ)
+                        </div>
+                        <div class="card-info">
+                            {{ vu }}
+                        </div>
+                    </div>
+                    <div class="content-card__item">
+                        <div class="card-subtitle">
+                            ЗАПОЛНЕННЫЕ УПАКОВКИ (ЗУ)
+                        </div>
+                        <div class="card-info">
+                            {{ zu }}
+                        </div>
+                    </div>
+                    <div class="content-card__item">
+                        <div class="card-subtitle">
+                            ПУСТЫЕ УПАКОВКИ (ПУ)
+                        </div>
+                        <div class="card-info">
+                            {{ pu }}
+                        </div>
+                    </div>
+                    <div class="content-card__item">
+                        <div class="card-subtitle">
+                            НЕПОЛНЫЕ УПАКОВКИ (НУ)
+                        </div>
+                        <div class="card-info">
+                            {{ nu }}
+                        </div>
+                    </div>
+                </div>
+                <div class="content-card">
+                    <h4 class="card-title">МАСТЕР-УПАКОВКИ</h4>
+                    <div class="content-card__item">
+                        <div class="card-subtitle">
+                            ВСЕГО МАСТЕР-УПАКОВОК (ВМУ)
+                        </div>
+                        <div class="card-info">
+                            {{ vmu }}
+                        </div>
+                    </div>
+                    <div class="content-card__item">
+                        <div class="card-subtitle">
+                            ЗАПОЛНЕННЫЕ МАСТЕР-УПАКОВКИ (ЗМУ)
+                        </div>
+                        <div class="card-info">
+                            {{ zmu }}
+                        </div>
+                    </div>
+                    <div class="content-card__item">
+                        <div class="card-subtitle">
+                            ПУСТЫЕ МАСТЕР-УПАКОВКИ (ПМУ)
+                        </div>
+                        <div class="card-info">
+                            {{ pmu }}
+                        </div>
+                    </div>
+                    <div class="content-card__item">
+                        <div class="card-subtitle">
+                            НЕПОЛНЫЕ МАСТЕР-УПАКОВКИ (НМУ)
+                        </div>
+                        <div class="card-info">
+                            {{ nmu }}
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="content-bar">
+                <ul class="content-bar__btns">
+                    <li class="btn">Задания</li>
+                    <li class="btn">Печатать КМ</li>
+                    <li class="btn">Упаковки SSCC</li>
+                    <li class="btn">Мастер-упаковки SSCC</li>
+                </ul>
+                <div class="content-bar__items">
+                    <div class="content-bar__items-task content-bar__item">
+                        <div class="content-scroll">
+                            <table class="content-bar__table">
+                                <tr class="orders-table__items">
+                                    <th>
+                                        <div class="orders-table__item-head">
+                                            <div class="grow-2"> Название Упаковки </div>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="orders-table__item-head">
+                                            <div class="grow-2"> GTIN </div>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="orders-table__item-head">
+                                            <div class="grow-2"> Наименование товара </div>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="orders-table__item-head">
+                                            <div class="grow-2"> Ёмкость упаковки 1-го уровня </div>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="orders-table__item-head">
+                                            <div class="grow-2">Всего упаковок 1-го уровня</div>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="orders-table__item-head">
+                                            <div class="grow-2"> Ёмкость упаковки 2-го уровня </div>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="orders-table__item-head">
+                                            <div class="grow-2">Кол-во единиц</div>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="orders-table__item-head">
+                                            <div class="grow-2">Кол-во мастер-упаковок</div>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="orders-table__item-head">
+                                            <div class="grow-2">Кол-во изделий в мастер-упаковок</div>
+                                        </div>
+                                    </th>
+                                </tr>
+                                {% for package in tasks %}
+                                <tr class="orders-table__item">
+                                    <td> {{ package.name_1 }} </td>
+                                    <td> {{ package.gtin }} </td>
+                                    <td> {{ package.name_2 }} </td>
+                                    <td>{{ package.container_1 }}</td>
+                                    <td>{{ package.count_1 }}</td>
+                                    <td>{{ package.container_2 }}</td>
+                                    <td>{{ package.count }}</td>
+                                    <td>{{ package.master_pack }}</td>
+                                    <td>{{ package.count_master_pack }}</td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                    <div class="content-bar__items-print content-bar__item">
+                        <form method="post" action="{% url 'mainapp:print_pdf' %}">
+                        <div class="content-print__settings">
+                                {% csrf_token %}
+                                <input type="number" name="copy_count" placeholder="Распечатать КМ" value=1>
+                                <button type="submit">Распечатать КМ</button>
+                        </div>
+                        <div class="content-print__input">
+                            <input type="text" placeholder="Введите текст для поиска...">
+                            <button class="btn">Искать</button>
+                        </div>
+                        <div class="content-scroll">
+                            <table class="content-bar__table">
+                                <tr class="orders-table__items">
+                                    <th class="width-10px"></th>
+                                    <th class="orders-table__item-head">
+                                        <div class="grow-2"> Артикул </div>
+                                    </th>
+                                    <th>
+                                        <div class="orders-table__item-head">
+                                            <div class="grow-2"> Товар </div>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="orders-table__item-head">
+                                            <div class="grow-2"> Кол-во </div>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="orders-table__item-head">
+                                            <div class="grow-2"> GTIN </div>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="orders-table__item-head">
+                                            <div class="grow-2"> Доступно для печати </div>
+                                        </div>
+                                    </th>
+                                </tr>
+                                {% for package in marking %}
+                                <tr class="orders-table__item">
+                                    <td class="width-10px">
+                                        <input type="checkbox" class="checkbox-select" name="selected_checkboxes" value="{{ package.file_name }}">
+                                    </td>
+                                    <td>{{ package.art }}</td>
+                                    <td>{{ package.name }}</td>
+                                    <td>{{ package.count }}</td>
+                                    <td>{{ package.gtin }}</td>
+                                    <td>{{ package.print_1 }}</td>
+                                </tr>
+                                {% endfor %}
+                                <input type="hidden" id="selected-checkboxes" name="selected_checkboxes" value="">
+                            </table>
+                        </div>
+                        </form>
+                        <div class="content-bar__tableinfo">
+                            <div>Кол-во: {{ v_art }}</div>
+                        </div>
+                    </div>
+                    <div class="content-bar__items-pack content-bar__item">
+                        <form method="post" action="{% url 'mainapp:print_pdf' %}">
+                        <div class="content-pack__settings">
+                            {% csrf_token %}
+                            <button type="submit">Распечатать КМ</button>
+                        </div>
+                        <div class="content-pack__input">
+                            <input type="text" placeholder="Введите текст для поиска...">
+                            <button class="btn">Искать</button>
+                        </div>
+
+                        <div class="content-scroll">
+                            <table class="content-bar__table">
+                                <tr class="orders-table__items">
+                                    <th class="width-10px"></th>
+                                    <th class="width-10px d-flex">
+                                        <div class="orders-table__item-head">
+                                            <div class="grow-2"> Спецификация </div>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="orders-table__item-head">
+                                            <div class="grow-2"> SSCC </div>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="orders-table__item-head">
+                                            <div class="grow-2">Нужно по спецификации </div>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="orders-table__item-head">
+                                            <div class="grow-2">Разница </div>
+                                        </div>
+                                    </th>
+                                </tr>
+                                 {% for package in sscc_info %}
+                                    <tr class="orders-table__item">
+                                        <td class="width-10px">
+                                            <input type="checkbox" class="checkbox-select_2" name="selected_checkboxes_2" value="{{package.file_name}}">
+                                        </td>
+                                        <td><a href="{% url 'mainapp:pack_more' package.id %}">{{ package.spec }}</a></td>
+                                        <td>{{ package.sscc }}</td>
+                                        <td>{{ package.count }}</td>
+                                        <td>{{ package.difference }}</td>
+                                    </tr>
+                                {% endfor %}
+                                <input type="hidden" id="selected-checkboxes_2" name="selected_checkboxes_2" value="">
+                            </table>
+                        </div>
+                        </form>
+                        <div class="content-pack__teblainfo">
+                            Кол-во: {{ vu }}
+                        </div>
+                    </div>
+                    <div class="content-bar__items-master content-bar__item">
+                        <form method="post" action="{% url 'mainapp:print_pdf' %}">
+                        <div class="content-master__settings">
+                            {% csrf_token %}
+                            <button type="submit">Распечатать КМ</button>
+                        </div>
+                        <div class="content-master__input">
+                            <input type="text" placeholder="Введите текст для поиска...">
+                            <button class="btn">Искать</button>
+                        </div>
+                        <div class="content-scroll">
+                            <table class="content-bar__table master-table">
+                                <tr class="orders-table__items">
+                                    <th class="width-10px"></th>
+                                    <th>
+                                        <div class="orders-table__item-head">
+                                            <div class="grow-2">Спецификация</div>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="orders-table__item-head">
+                                            <div class="grow-2">SSCC</div>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="orders-table__item-head">
+                                            <div class="grow-2">Нужно по спецификации</div>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="orders-table__item-head">
+                                            <div class="grow-2">Разница</div>
+                                        </div>
+                                    </th>
+                                </tr>
+                                {% for package in master_packaging %}
+                                <tr class="orders-table__item">
+                                    <th class="width-10px">
+                                        <input type="checkbox" class="checkbox-select_3" name="selected_checkboxes_3" value="{{package.file_name}}">
+                                    </th>
+                                    <td>
+                                        <div class="orders-table__item-head">
+                                            <div class="grow-2">{{ package.spec }}</div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="orders-table__item-head">
+                                            <div class="grow-2">{{ package.sscc }}</div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="orders-table__item-head">
+                                            <div class="grow-2">{{ package.count }}</div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="orders-table__item-head">
+                                            <div class="grow-2">{{ package.difference }}</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                <input type="hidden" id="selected-checkboxes_3" name="selected_checkboxes_3" value="">
+                            </table>
+                            <div class="content-master__teblainfo">
+                                Кол-во: {{ v_art }}
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+<footer class="container footer">
+        Build <span>6/28/2023</span> <span>3:52:30 PM</span>
+    </footer>
+
+
+    <script src="{% static 'js/order.js' %}"></script>
+
+
+
+{% endblock %}

@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-
+<body>
 <header class="header container">
         <div class="header-left">
             <div class="header-left__btn"><i class="fa-solid fa-bars"></i></div>
@@ -25,9 +25,6 @@
                 <h2 class="section-title">Заказы на маркировку</h2>
                 <div class="packs-settings">
                     <button class="btn"><a href="{% url 'mainapp:orders_add' %}"><img src="{% static 'img/Plus.png' %}" alt="restart"></a></button>
-                    <button class="btn"><img src="{% static 'img/restart.svg' %}" alt="restart"></button>
-                    <button class="btn"><img src="{% static 'img/reset.svg' %}" alt="reset"></button>
-                    <button class="btn"><img src="{% static 'img/refresh.svg' %}" alt="refresh"></button>
                     <select>
                         <option value="active">Активные заказы</option>
                         <option value="closed">Завершенные заказы</option>
@@ -38,114 +35,64 @@
                 </div>
                 <table class="orders-table">
                     <tr class="orders-table__items">
-                        <th class="width-10px">
-                            <div class="grow-02"><input type="checkbox"></div>
+                        <th>
+                            <div class="grow-2">№ </div>
                         </th>
                         <th>
-                            <div class="grow-2">№ <i class="fa-solid fa-arrow-up"></i> <i
-                                    class="fa-solid fa-filter"></i></div>
+                            <div class="grow-2">ДАТА </div>
                         </th>
                         <th>
-                            <div class="grow-2">ДАТА <i class="fa-solid fa-filter"></i></div>
+                            <div class="grow-2">КОНТРАКТ </div>
                         </th>
                         <th>
-                            <div class="grow-2">КОНТРАКТ <i class="fa-solid fa-filter"></i></div>
+                            <div class="grow-4">КОММЕНТАРИЙ </div>
                         </th>
                         <th>
-                            <div class="grow-4">КОММЕНТАРИЙ <i class="fa-solid fa-filter"></i></div>
+                            <div class="grow-1">ВУ </div>
                         </th>
                         <th>
-                            <div class="grow-1">ВУ <i class="fa-solid fa-filter"></i></div>
+                            <div class="grow-1">ЗУ </div>
                         </th>
                         <th>
-                            <div class="grow-1">ЗУ <i class="fa-solid fa-filter"></i></div>
+                            <div class="grow-1">ПУ </div>
                         </th>
                         <th>
-                            <div class="grow-1">ПУ <i class="fa-solid fa-filter"></i></div>
+                            <div class="grow-1">НУ </div>
                         </th>
                         <th>
-                            <div class="grow-1">НУ <i class="fa-solid fa-filter"></i></div>
+                            <div class="grow-1">ВМУ </div>
                         </th>
                         <th>
-                            <div class="grow-1">ВМУ <i class="fa-solid fa-filter"></i></div>
+                            <div class="grow-1">ЗМУ </div>
                         </th>
                         <th>
-                            <div class="grow-1">ЗМУ <i class="fa-solid fa-filter"></i></div>
+                            <div class="grow-1">ПМУ </div>
                         </th>
                         <th>
-                            <div class="grow-1">ПМУ <i class="fa-solid fa-filter"></i></div>
-                        </th>
-                        <th>
-                            <div class="grow-1">НМУ <i class="fa-solid fa-filter"></i></div>
+                            <div class="grow-1">НМУ </div>
                         </th>
                     </tr>
+                    {% for marking in mark_Info %}
                     <tr class="orders-table__item">
-                        <td class="width-10px">
-                            <div class="grow-02"><input type="checkbox"></div>
-                        </td>
-                        <td><a href="./order.html">3406</a></td>
-                        <td>12/6/2022</td>
+                        <td><a href="{% url 'mainapp:orders_more' marking.id %}">{{ marking.id }}</a></td>
+                        <td>{{ marking.date }}</td>
                         <td>TIR_SAM</td>
-                        <td>Полные мешки: КМ 83500, упаковок 4190, мешков 535</td>
-                        <td>4,190</td>
-                        <td>4,190</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>535</td>
-                        <td>535</td>
-                        <td>0</td>
-                        <td>0</td>
+                        <td>{{ marking.comment }} </td>
+                        {% for m_info in info %}
+                        {% if m_info.markingId == marking.id %}
+                        <td>{{ m_info.vu }}</td>
+                        <td>{{ m_info.zu }}</td>
+                        <td>{{ m_info.pu }}</td>
+                        <td>{{ m_info.nu }}</td>
+                        <td>{{ m_info.vmu }}</td>
+                        <td>{{ m_info.zmu }}</td>
+                        <td>{{ m_info.pmu }}</td>
+                        <td>{{ m_info.nmu }}</td>
+                        {% endif %}
+                        {% endfor %}
                     </tr>
-                    <tr class="orders-table__item">
-                        <td class="width-10px">
-                            <div class="grow-02"><input type="checkbox"></div>
-                        </td>
-                        <td><a href="./order.html">3406</a></td>
-                        <td>12/6/2022</td>
-                        <td>TIR_SAM</td>
-                        <td>Полные мешки: КМ 83500, упаковок 4190, мешков 535</td>
-                        <td>4,190</td>
-                        <td>4,190</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>535</td>
-                        <td>535</td>
-                        <td>0</td>
-                        <td>0</td>
-                    </tr>
-                    <tr class="orders-table__item">
-                        <td class="width-10px">
-                            <div class="grow-02"><input type="checkbox"></div>
-                        </td>
-                        <td>3406</td>
-                        <td>12/6/2022</td>
-                        <td>TIR_SAM</td>
-                        <td>Полные мешки: КМ 83500, упаковок 4190, мешков 535</td>
-                        <td>4,190</td>
-                        <td>4,190</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>535</td>
-                        <td>535</td>
-                        <td>0</td>
-                        <td>0</td>
-                    </tr>
+                    {% endfor %}
                 </table>
-                <div class="orders-table__btns">
-                    <div class="orders-table__btns-right">
-                        <button class="btn"><i class="fa-solid fa-arrow-left"></i></button>
-                        <span>1</span>
-                        <button class="btn"><i class="fa-solid fa-arrow-right"></i></button>
-                    </div>
-                    <div class="orders-table__btns-left">
-                        <span>PAGE SIZE </span>
-                        <select>
-                            <option>10</option>
-                            <option>10</option>
-                            <option>10</option>
-                        </select>
-                    </div>
-                </div>
             </div>
             <!-- /Orders-->
         </div>

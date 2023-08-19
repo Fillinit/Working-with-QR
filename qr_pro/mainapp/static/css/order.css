@@ -15,19 +15,24 @@
     color: rgba(0, 0, 0, 0.8);
     font-weight: 300;
 }
+
 .bg-green {
     background: green;
     color: #fff;
 }
+
 .bg-green span {
     color: #fff;
 }
+
 .text-end {
     text-align: end;
 }
+
 .text-center {
     text-align: center;
 }
+
 /* header */
 .header {
     padding-top: 10px;
@@ -201,6 +206,8 @@
     flex-basis: 100%;
     display: flex;
     justify-content: flex-start;
+    position: relative;
+    top: 1px;
 }
 
 .content-bar__btns .btn {
@@ -210,6 +217,11 @@
     background: none;
     cursor: pointer;
     transition: 0.3s;
+    list-style: none;
+}
+
+.content-bar__btns .btn.active {
+    border-bottom: 1px solid #fff;
 }
 
 .content-bar__btns .btn:hover {
@@ -223,13 +235,14 @@
     flex-wrap: wrap;
 }
 
+
 .content-bar__items-print {
-    border: 1px solid rgba(0, 0, 0, 0.5);
     width: 100%;
 }
 
 .content-print__settings {
-    padding: 5px;
+    margin-right: 10px;
+    margin-top: 10px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -275,23 +288,43 @@
     border-color: #5189d3;
 }
 
+.content-print__input .btn {
+    padding: 5px 15px;
+    background: none;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+}
+.content-print__input .btn:hover {
+    background:rgba(0, 0, 0, 0.2);
+}
+.content-print__input .btn:focus {
+    background:rgba(0, 0, 0, 0.1);
+}
 .content-bar__table {
-    width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    width: 120%;
 }
 
 .orders-table__items {
-    width: 100%;
+    width: 200%;
     background-color: #F7F7F7;
 }
 
 .orders-table__items th {
     border: 1px solid rgba(0, 0, 0, 0.5);
+    font-size: 12px;
     padding: 5px 10px;
     cursor: pointer;
     color: rgba(0, 0, 0, 0.7);
     font-weight: 500;
+}
+
+.orders-table__item-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }
 
 .width-10px {
@@ -359,10 +392,12 @@
     padding: 7px 15px;
     border-radius: 5px;
 }
+
 .orders-table__btns-left {
     font-size: 14px;
     color: rgba(0, 0, 0, 0.5);
 }
+
 .orders-table__btns-left select {
     padding-top: 5px;
     padding-bottom: 5px;
@@ -377,13 +412,14 @@
 }
 
 .content-bar__items-pack {
-    margin-top: 50px;
     width: 100%;
     display: flex;
     flex-wrap: wrap;
 }
 
 .content-pack__settings {
+    padding-right: 10px;
+    padding-top: 10px;
     flex-basis: 100%;
     width: 100%;
     display: flex;
@@ -435,7 +471,18 @@
 .content-pack__input input:focus {
     border-color: #5189d3;
 }
-
+.content-pack__input .btn {
+    padding: 5px 15px;
+    background: none;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+}
+.content-pack__input .btn:hover {
+    background:rgba(0, 0, 0, 0.2);
+}
+.content-pack__input .btn:focus {
+    background:rgba(0, 0, 0, 0.1);
+}
 
 .content-pack__teblainfo {
     padding: 10px 50px;
@@ -447,10 +494,12 @@
 
 
 .content-bar__items-master {
-    margin-top: 50px;
     width: 100%;
 }
+
 .content-master__settings {
+    padding-right: 10px;
+    padding-top: 10px;
     width: 100%;
     display: flex;
     justify-content: flex-end;
@@ -501,20 +550,57 @@
 .content-master__input input:focus {
     border-color: #5189d3;
 }
+.content-master__input .btn {
+    padding: 5px 15px;
+    background: none;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+}
+.content-master__input .btn:hover {
+    background:rgba(0, 0, 0, 0.2);
+}
+.content-master__input .btn:focus {
+    background:rgba(0, 0, 0, 0.1);
+}
+.master-table {
+    width: 100%;
+}
+
 .content-master__data {
     display: flex;
     justify-content: center;
     padding: 10px 0;
     color: rgba(0, 0, 0, 0.5);
 }
+
 .content-master__teblainfo {
     padding: 10px 50px;
     background: #d7e2f1;
     width: 100%;
 }
 
+.content-bar__item {
+    display: none;
+}
+
+.content-bar__item.active {
+    width: 100%;
+    display: block;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+}
+.content-scroll {
+    overflow-x: scroll;
+    
+}
 
 
+.print-icon {
+    display: none;
+}
+
+.print-icon.active {
+    display: block;
+}
 
 .footer {
     margin-top: 20px;

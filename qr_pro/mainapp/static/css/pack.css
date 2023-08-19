@@ -25,6 +25,10 @@
     color: #fff;
 }
 
+.bg-orange {
+    background: orange;
+}
+
 .text-end {
     text-align: end;
 }
@@ -32,7 +36,15 @@
 .text-center {
     text-align: center;
 }
-
+.content-scroll {
+    overflow-x: scroll;
+}
+.print-icon {
+    display: none;
+}
+.print-icon.active {
+    display: block;
+}
 /* header */
 .header {
     padding-top: 10px;
@@ -128,6 +140,7 @@
 .pack {
     padding-left: 20px;
     flex-basis: 80%;
+    margin-bottom: 100px;
 }
 
 .pack-bar__code {
@@ -186,16 +199,24 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    position: relative;
+    top: 1px;
 }
 
 .pack-tab__btns .btn {
     list-style: none;
     border: 1px solid rgba(0, 0, 0, 0.5);
     padding: 10px;
+    cursor: pointer;
+}
+
+.pack-tab__btns .btn.active {
+    border-bottom: 1px solid #fff;
 }
 
 .pack-tab__km-settings {
     margin-top: 20px;
+    margin-right: 20px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -222,6 +243,7 @@
 }
 
 .pack-tab__km-input {
+    margin-left: 20px;
     width: 100%;
 }
 
@@ -236,7 +258,18 @@
 .pack-tab__km-input input:focus {
     border-color: #5189d3;
 }
-
+.pack-tab__km-input .btn {
+    padding: 5px 15px;
+    background:none;
+    border:1px solid rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+.pack-tab__km-input .btn:hover {
+    background-color:rgba(0, 0, 0, 0.2);
+}
+.pack-tab__km-input .btn:focus {
+    background-color:rgba(0, 0, 0, 0.1);
+}
 .pack-tab__data {
     margin: 20px 0;
     width: 100%;
@@ -245,19 +278,15 @@
 .pack-tab__tableinfo {
     padding: 10px 50px;
     background: #d7e2f1;
-    width: 100%;
+    width: 120%;
 }
 
 /* pack-tab__packing */
-.pack-tab__packing {
-    margin-top: 50px;
-    border-top: 1px solid black;
-    /* code should delete */
-}
 
 .pack-tab__packing-settings,
 .property-operation__settings {
-    margin-top: 20px;
+    margin-right: 10px;
+    margin-top: 10px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -290,6 +319,7 @@
 .property-all__input,
 .property-operation__input {
     width: 100%;
+    margin-left: 20px;
 }
 
 .pack-tab__packing-input input,
@@ -309,16 +339,55 @@
 .property-all__input input:focus {
     border-color: #5189d3;
 }
-
+.property-all__input .btn {
+    padding: 5px 15px;
+    background:none;
+    border:1px solid rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+.property-all__input .btn:hover{
+    background:rgba(0, 0, 0, 0.2);
+}
+.property-all__input .btn:focus{
+    background:rgba(0, 0, 0, 0.1);
+}
 .pack-tab__packing-input input:focus {
     border-color: #5189d3;
 }
+.pack-tab__packing-input .btn {
+    padding: 5px 15px;
+    background:none;
+    border:1px solid rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+.pack-tab__packing-input .btn:hover {
+    background:rgba(0, 0, 0, 0.2);
+}
+.pack-tab__packing-input .btn:focus {
+    background:rgba(0, 0, 0, 0.1);
+}
+.property-all__input .bt,.property-operation__input .btn  {
+    padding: 5px 15px;
+    background:none;
+    border:1px solid rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+.property-all__input .btn:hover {
+    background: rgba(0, 0, 0, 0.2);
+}
+.property-all__input .btn:focus {
+    background:rgba(0, 0, 0, 0.1);
+}
+.property-operation__input .btn:hover {
+    background: rgba(0, 0, 0, 0.2);
+}
+.property-operation__input .btn:focus {
+    background: rgba(0, 0, 0, 0.1);
+}
+
 
 .pack-tab__property {
-    padding-top: 20px;
-    margin-top: 20px;
-    border-top: 1px solid black;
-    padding-bottom: 100px;
+    padding: 20px
 }
 
 .pack-tab__property-info {
@@ -353,6 +422,8 @@
     justify-content: flex-start;
     align-items: center;
     margin-top: 20px;
+    position: relative;
+    top: 1px;
 }
 
 .pack-tab__property-btns .btn {
@@ -362,17 +433,18 @@
     cursor: pointer;
 }
 
-.property-all,
-.property-operation {
-    border: 1px solid rgba(0, 0, 0, 0.5);
-    padding: 10px;
+.pack-tab__property-btns .btn.active {
+    border-bottom: 1px solid #fff;
 }
+
 
 .property-all__settings,
 .property-document__settings {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    margin-top: 10px;
+    margin-right: 10px;
 }
 
 .property-all__settings .btn {
@@ -394,17 +466,17 @@
     outline: none;
     color: #5189d3;
 }
-.property-document {
-    border: 1px solid rgba(0, 0, 0, 0.5);
-    padding: 10px;
-}
+
+
 .property-document__settings .btn {
     background: none;
     border: none;
 }
+
 .property-document__settings .btn img {
     width: 20px;
 }
+
 .orders-table {
     width: 100%;
     border-collapse: collapse;
@@ -456,7 +528,7 @@
 }
 
 .pack-tab__table {
-    width: 100%;
+    width: 120%;
     border-collapse: collapse;
     margin-top: 20px;
 }
@@ -510,6 +582,27 @@
     padding-bottom: 5px;
     padding-right: 20px;
 }
+
+.pack-content {
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    display: none;
+}
+
+.pack-content.active {
+    display: block;
+}
+
+.property-content {
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    display: none;
+}
+
+.property-content.active {
+    display: block;
+}
+
+
+
 
 .footer {
     position: fixed;

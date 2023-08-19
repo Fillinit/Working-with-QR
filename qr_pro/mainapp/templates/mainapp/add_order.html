@@ -23,21 +23,27 @@
             <!-- Orders-->
             <div class="packs">
                 <h2 class="section-title">Добавить маркировку</h2>
-                <div class="packs-settings">
-                    <button class="btn"><img src="{% static 'img/Plus.png' %}" alt="restart"></button>
-                    <button class="btn"><img src="{% static 'img/restart.svg' %}" alt="restart"></button>
-                    <button class="btn"><img src="{% static 'img/reset.svg' %}" alt="reset"></button>
-                    <button class="btn"><img src="{% static 'img/refresh.svg' %}" alt="refresh"></button>
-                    <select>
-                        <option value="active">Активные заказы</option>
-                        <option value="closed">Завершенные заказы</option>
-                    </select>
-                </div>
                 <div class="orders-search">
-                    <form action="{% url 'mainapp:index' %}" method="post" enctype="multipart/form-data">
-                        <input type="text" name="text_input_1" placeholder="Введите КОНТРАКТ">
-                        <input type="text" name="text_input_2" placeholder="Введите КОММЕНТАРИЙ">
-                        <input type="number" name="text_input_3" placeholder="Кол-во Мастер-Упковок">
+                    <form action="{% url 'mainapp:orders_save' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <select name="dropdown">
+                            <option value="New">Новая маркировка</option>
+                            {% for mark in marks %}
+                            <option value="{{ mark.name }}">{{ mark.name }}</option>
+                            {% endfor %}
+                        </select>
+                        <input type="text" name="name_marking" placeholder="Введите Наименование Маркировки">
+                        <input type="text" name="gtin_code" placeholder="Введите GTIN">
+                        <input type="text" name="articul" placeholder="Введите Артикул">
+                        <input type="text" name="weight" placeholder="Введите массу ( 450 г/м )">
+                        <input type="text" name="size" placeholder="Введите размер ( 70х130 см )">
+                        <input type="text" name="color" placeholder="Введите цвет ( св.розовый )">
+                        <input type="text" name="inn" placeholder="Введите ИНН ( ИНН ИМПОРТЁРА )">
+                        <input type="text" name="Importer" placeholder="Введите инфо о ИМПОРТЕРЕ">
+                        <input type="text" name="contract" placeholder="Введите Контракт">
+                        <input type="text" name="comment" placeholder="Введите Комментарий">
+                        <input type="number" name="number_packing_master" placeholder="Кол-во Мастер-Упковок">
+                        <input type="number" name="number_packing" placeholder="Кол-во Упковок">
                         <input type="file" name="file_input" id="fileInput">
                         <button type="submit" id="submitButton">Отправить</button>
                     </form>

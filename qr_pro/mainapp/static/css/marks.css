@@ -20,7 +20,13 @@
 .bg-green span {
     color: #fff;
 }
-
+.d-flex {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    border-bottom: 1px solid #000;
+}
 .text-end {
     text-align: end;
 }
@@ -33,6 +39,15 @@
 .width-100 {
     width: 100%;
     flex-basis: 100%;
+}
+.orders-table__item-head {
+    font-size: 12px;
+}
+.print-icon {
+    display: none;
+}
+.print-icon.active {
+    display: block;
 }
 /* header */
 .header {
@@ -133,8 +148,13 @@
     width: 20px;
 }
 .mark-btns {
+    position: relative;
+    top: 1px;
     display: flex;
     justify-content: flex-start;
+}
+.mark-btn.active {
+    border-bottom: 1px solid #fff;
 }
 .mark-btn {
     cursor: pointer;
@@ -144,7 +164,6 @@
 }
 .mark-code {
     padding: 20px;
-    border: 1px solid rgba(0, 0, 0, 0.5);
 }
 .section-subtitle {
     text-transform: uppercase;
@@ -238,10 +257,8 @@
 }
 .mark-code__data {
     padding: 10px 50px;
-    border-right: 1px solid rgba(0, 0, 0, 0.5);
-    border-left: 1px solid rgba(0, 0, 0, 0.5);
 }
-.mark-property {
+.mark-property__items {
     width: 100%;
     display: flex;
     justify-content: flex-start;
@@ -250,11 +267,12 @@
 }
 .mark-property__item {
     display: flex;
-    flex-basis: 50%;
+    flex-basis: 45%;
     flex-direction: column;
     justify-content: flex-start;
 }
 .mark-property__btns {
+    margin-top: 20px;
     display: flex;
     justify-content: flex-start;
 }
@@ -265,8 +283,17 @@
 }
 .mark-property {
     padding: 20px;
-    border: 1px solid rgba(0, 0, 0, 0.5);
 }
+.mark-content {
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    display: none;
+}
+.mark-content.active {
+    display: block;
+}
+
+
+
 .footer {
     position: fixed;
     bottom: 0;

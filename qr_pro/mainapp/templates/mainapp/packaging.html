@@ -23,67 +23,57 @@
 
             <!--Packs-->
             <div class="packs">
-                <h2 class="section-title">
-                    Упаковки (отсканируйте SSCC)
-                </h2>
+                <h2 class="section-title">Упаковки (отсканируйте SSCC)</h2>
                 <div class="packs-settings">
-                    <button class="btn"><img src="{% static 'img/edit.svg' %}" alt="edit"></button>
-                    <button class="btn"><img src="{% static 'img/reset.svg' %}" alt="reset"></button>
-                    <button class="btn"><img src="{% static 'img/refresh.svg' %}" alt="refresh"></button>
-                    <select>
-                        <option value="active">Показать список</option>
-                        <option value="closed">Скрыть список</option>
-                    </select>
                     <select value="Mode" placeholder="Mode">
-                        <option value="active">Неполные упаковки (созданные)</option>
-                        <option value="closed">Без фильтра</option>
+                        <option value="active">Без фильтра</option>
+                        <option value="closed">Неполные упаковки (созданные)</option>
+
                     </select>
                 </div>
                 <table class="packs-table">
                     <tr class="packs-table__items">
                         <th class="width-10px">
                         </th>
-                        <th class="width-10px">
+                        <th>
+                            <div class="grow-2">SSCC</div>
                         </th>
                         <th>
-                            <div class="grow-2">SSCC<i class="fa-solid fa-filter"></i></div>
+                            <div class="grow-2">№ заказа</div>
                         </th>
                         <th>
-                            <div class="grow-2">№ заказа<i class="fa-solid fa-filter"></i></div>
+                            <div class="grow-4">Комментарий на заказ</i></div>
                         </th>
                         <th>
-                            <div class="grow-4">Комментарий на заказ<i class="fa-solid fa-filter"></i></div>
+                            <div class="grow-1">Вложения</div>
                         </th>
                         <th>
-                            <div class="grow-1">Вложения<i class="fa-solid fa-filter"></i></div>
+                            <div class="grow-1">По спецификации</div>
                         </th>
                         <th>
-                            <div class="grow-1">По спецификации<i class="fa-solid fa-filter"></i></div>
+                            <div class="grow-1">Отсканированно</div>
                         </th>
                         <th class="width-10px">
                             <div class="grow-1">Уровень</div>
                         </th>
                         <th>
-                            <div class="grow-1">Контакт<i class="fa-solid fa-filter"></i></div>
+                            <div class="grow-1">Контакт</div>
                         </th>
                     </tr>
+                    {% for package in info %}
                     <tr class="packs-table__item">
-                        <td class="width-20px">
-                        </td>
-                        <td class="width-20px">
-                        </td>
-                        <td></td>
-                        <td><input type="number"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                            <td class="width-20px">{{ forloop.counter }}</td>
+                            <td><a href="{% url 'mainapp:pack_more' package.id %}">{{ package.sscc }}</a></td>
+                            <td><input type="number">{{ package.n_z }}</td>
+                            <td>{{ package.comment }}</td>
+                            <td>{{ package.count }}</td>
+                            <td>{{ package.count }}</td>
+                            <td>{{ package.count_scan }}</td>
+                            <td>1/1</td>
+                            <td>{{ package.contract }}</td>
                     </tr>
+                    {% endfor %}
                 </table>
-                <div class="packs-item__data">
-                    Нет данных для отображения
-                </div>
             </div>
             <!-- /Packs-->
 
@@ -94,8 +84,9 @@
     <footer class="container footer">
         Build <span>6/28/2023</span> <span>3:52:30 PM</span>
     </footer>
-
-
-    <script src="{% static 'js/script.js' %}"></script>
+    <script>
+        window.scanPackUrl = "{% url 'mainapp:scan_pack' %}";
+    </script>
+    <script src="{% static 'js/pack_script.js' %}"></script>
 </body>
 {% endblock %}
