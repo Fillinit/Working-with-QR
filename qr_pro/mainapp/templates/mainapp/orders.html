@@ -8,12 +8,7 @@
             <div class="header-left__btn"><i class="fa-solid fa-bars"></i></div>
             <div class="header-left__brand"><a href="{% url 'mainapp:index' %}"><img src="{% static '/img/tagosaur.png' %}" alt="logo"></a></div>
         </div>
-        <div class="header-right">
-            <div class="header-right__bell">
-                <i class="fa-solid fa-bell"></i><span>0</span>
-            </div>
-            <div class="header-right__user"><i class="fa-solid fa-user"></i></div>
-        </div>
+        
     </header>
     <!-- Header -->
     <!--Main-->
@@ -24,14 +19,22 @@
             <div class="packs">
                 <h2 class="section-title">Заказы на маркировку</h2>
                 <div class="packs-settings">
+                    {% if request.user.is_superuser %}
                     <button class="btn"><a href="{% url 'mainapp:orders_add' %}"><img src="{% static 'img/Plus.png' %}" alt="restart"></a></button>
-                    <select>
-                        <option value="active">Активные заказы</option>
-                        <option value="closed">Завершенные заказы</option>
-                    </select>
+                    {% endif %}
+                    <form action="{% url 'mainapp:orders' %}" method="post">
+                        {% csrf_token %}
+                        <select name="order_status">
+                            <option value="all">Все</option>
+                            <option value="active">Активные заказы</option>
+                            <option value="closed">Завершенные заказы</option>
+                        </select>
+                        <button class="btn" type="submit">Отправить</button>
+                    </form>
                 </div>
                 <div class="orders-search">
                     <input type="text" placeholder="Введите текст для поиска">
+                    <button class="btn">Искать</button>
                 </div>
                 <table class="orders-table">
                     <tr class="orders-table__items">
@@ -71,23 +74,61 @@
                         <th>
                             <div class="grow-1">НМУ </div>
                         </th>
+                        {% if request.user.is_superuser %}
+                        <th>
+                            <div class="grow-1">УДАЛИТЬ </div>
+                        </th>
+                        {% endif %}
                     </tr>
                     {% for marking in mark_Info %}
                     <tr class="orders-table__item">
                         <td><a href="{% url 'mainapp:orders_more' marking.id %}">{{ marking.id }}</a></td>
-                        <td>{{ marking.date }}</td>
-                        <td>TIR_SAM</td>
-                        <td>{{ marking.comment }} </td>
+                        <td><span>{{ marking.date }}</span></td>
+                        <td><span>TIR_SAM</span></td>
+                        <td><span>{{ marking.comment }}</span> </td>
                         {% for m_info in info %}
                         {% if m_info.markingId == marking.id %}
-                        <td>{{ m_info.vu }}</td>
-                        <td>{{ m_info.zu }}</td>
-                        <td>{{ m_info.pu }}</td>
-                        <td>{{ m_info.nu }}</td>
-                        <td>{{ m_info.vmu }}</td>
-                        <td>{{ m_info.zmu }}</td>
-                        <td>{{ m_info.pmu }}</td>
-                        <td>{{ m_info.nmu }}</td>
+                        <td class="bg-green"><span>{{ m_info.vu }}</span></td>
+                        {% if m_info.vu == m_info.zu %}
+                        <td class="bg-green"><span>{{ m_info.zu }}</span></td>
+                        {% else %}
+                        <td class="bg-red"><span>{{ m_info.zu }}</span></td>
+                        {% endif %}
+                        {% if m_info.pu != 0 %}
+                        <td class="bg-red"><span>{{ m_info.pu }}</span></td>
+                        {% else %}
+                        <td class="bg-green"><span>{{ m_info.pu }}</span></td>
+                        {% endif %}
+                        {% if m_info.nu == 0 %}
+                        <td class="bg-green"><span>{{ m_info.nu }}</span></td>
+                         {% else %}
+                        <td class="bg-red"><span>{{ m_info.nu }}</span></td>
+                        {% endif %}
+                        <td class="bg-green"><span>{{ m_info.vmu }}</span></td>
+                        {% if m_info.vmu == m_info.zmu %}
+                        <td class="bg-green"><span>{{ m_info.zmu }}</span></td>
+                        {% else %}
+                        <td class="bg-red"><span>{{ m_info.zmu }}</span></td>
+                        {% endif %}
+                        {% if m_info.pmu != 0 %}
+                        <td class="bg-red"><span>{{ m_info.pmu }}</span></td>
+                        {% else %}
+                        <td class="bg-green"><span>{{ m_info.pmu }}</span></td>
+                        {% endif %}
+                        {% if m_info.nmu != 0 %}
+                        <td class="bg-red"><span>{{ m_info.nmu }}</span></td>
+                        {% else %}
+                        <td class="bg-green"><span>{{ m_info.nmu }}</span></td>
+                        {% endif %}
+                        {% if request.user.is_superuser %}
+                        <td>
+                            <form action="{% url 'mainapp:del_marking' %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="marking_id" value="{{ marking.id }}">
+                                <button class="btn" type="submit">Удалить</button>
+                            </form>
+                        </td>
+                        {% endif %}
                         {% endif %}
                         {% endfor %}
                     </tr>

@@ -8,12 +8,6 @@
             <div class="header-left__btn"><i class="fa-solid fa-bars"></i></div>
             <div class="header-left__brand"><a href="./index.html"><img src="{% static './img/tagosaur.png' %}" alt="logo"></a></div>
         </div>
-        <div class="header-right">
-            <div class="header-right__bell">
-                <i class="fa-solid fa-bell"></i><span>0</span>
-            </div>
-            <div class="header-right__user"><i class="fa-solid fa-user"></i></div>
-        </div>
     </header>
 
 
@@ -31,6 +25,7 @@
                         <button class="btn"><i class="fa-solid fa-arrow-left"></i></button>
                         <button class="btn"><i class="fa-solid fa-arrow-right"></i></button>
                     </div>
+                        <button class="btn operation-title__btns-submit">Отправить</button>
                 </div>
             </div>
             <div class="operation-bar">
@@ -44,8 +39,13 @@
                         <p>{{ marking.contract }}</p>
                     </div>
                     <div class="operation-info__item">
-                        <h4 class="operation-info__subtitle">Статус</h4>
-                        <p>{{ marking.comment }}</p>
+                        <h4 class="operation-info__subtitle ">Статус</h4>
+
+                        {% if marking.status %}
+                        <p class="txt-red"><span><b>Отправлен</b></span></p>
+                        {% else %}
+                        <p><span><b>Активный</b></span></p>
+                        {% endif %}
                         <h4 class="operation-info__subtitle">Комментарий</h4>
                         <p>{{ marking.comment }}</p>
                     </div>
@@ -57,7 +57,7 @@
                 <li class="btn">Товары</li>
             </ul>
             <div class="operation-tab__km operation-content">
-                <div class="content-scroll">
+                <!-- <div class="content-scroll"> -->
                     <table class="operation-tab__table">
                         <tr class="orders-table__items">
                             <th>
@@ -88,24 +88,35 @@
                         </tr>
                         {% for codeM in codeM_Info %}
                         <tr class="orders-table__item">
-                            <td>{{ codeM.specif }}</td>
+                            {% if codeM.status_send %}
+                            <td class="bg-green GTIN">{{ codeM.specif }}</td>
+                            <td class="bg-green">{{ codeM.gtin }}</td>
+                            <td class="bg-green">{{ codeM.artic }}</td>
+                            <td class="bg-green">{{ codeM.count_specif }}</td>
+                            {% else %}
+                            <td class="GTIN">{{ codeM.specif }}</td>
                             <td>{{ codeM.gtin }}</td>
                             <td>{{ codeM.artic }}</td>
-                            <td>{{ codeM.count_specif }}</td>
-                            <td>{{ codeM.not_scan_count_specif }}</td>
+                            <td class="bg-green"><span>{{ codeM.count_specif }}</span></td>
+                            {% endif %}
+                            {% if codeM.not_scan_count_specif == 0 %}
+                            <td class="bg-green"><span>{{ codeM.not_scan_count_specif }}</span></td>
+                            {% else %}
+                            <td class="bg-red"><span>{{ codeM.not_scan_count_specif }}</span></td>
+                            {% endif %}
                         </tr>
                         {% endfor %}
                     </table>
-                </div>
+                <!-- </div> -->
 
                 <div class="operation-tab__data text-center"></div>
                 <div class="operation-tab__tableinfo">
-                    Кол-во: <span>0</span>
+                    Кол-во: <span>{{ codeM_Info|length }}</span>
                 </div>
             </div>
             <div class="upakovka-tab__km operation-content">
                 <div class="content-scroll">
-                    <table class="upakovka-tab__table">
+                    <table class="pack-tab__table">
                         <tr class="orders-table__items">
                             <th>
                                 <div class="orders-table__item-head">
@@ -139,8 +150,13 @@
                             <td>{{ pack.specif }}</td>
                             <td>{{ pack.sscc }}</td>
                             <td>{{ pack.artic }}</td>
-                            <td>{{ pack.count_specif }}</td>
-                            <td>{{ pack.not_scan_count_specif }}</td>
+                            {% if pack.not_scan_count_specif == 0 %}
+                                <td class="bg-green"><span>{{ pack.count_specif }}</span></td>
+                                <td class="bg-green"><span>{{ pack.not_scan_count_specif }}</span></td>
+                            {% else %}
+                                <td class="bg-red"><span>{{ pack.count_specif }}</span></td>
+                                <td class="bg-red"><span>{{ pack.not_scan_count_specif }}</span></td>
+                            {% endif %}
                         </tr>
                         {% endfor %}
                     </table>
@@ -148,11 +164,11 @@
 
                 <div class="upakovka-tab__data text-center"></div>
                 <div class="upakovka-tab__tableinfo">
-                    Кол-во: <span>0</span>
+                    Кол-во: <span>{{ pack_Info|length }}</span>
                 </div>
             </div>
             <div class="merchandise-tab__km operation-content">
-                <div class="content-scroll">
+                <!-- <div class="content-scroll"> -->
                     <table class="merchandise-tab__table">
                         <tr class="orders-table__items">
                             <th>
@@ -178,18 +194,25 @@
                         </tr>
                         {% for product in product_Info %}
                         <tr class="orders-table__item">
-                            <td>{{ product.specif }}</td>
-                            <td>{{ product.sscc }}</td>
-                            <td>{{ product.artic }}</td>
-                            <td>{{ product.sgtin }}</td>
+                            {% if product.status %}
+                                <td>{{ product.specif }}</td>
+                                <td>{{ product.sscc }}</td>
+                                <td>{{ product.artic }}</td>
+                                <td class="bg-green"><span>{{ product.sgtin }}</span></td>
+                            {% else %}
+                                <td>{{ product.specif }}</td>
+                                <td>{{ product.sscc }}</td>
+                                <td>{{ product.artic }}</td>
+                                <td class="bg-red"><span>{{ product.sgtin }}</span></td>
+                            {% endif %}
                         </tr>
                         {% endfor %}
                     </table>
-                </div>
+                <!-- </div> -->
 
                 <div class="merchandise-tab__data text-center"></div>
                 <div class="merchandise-tab__tableinfo">
-                    Кол-во: <span>0</span>
+                    Кол-во: <span>{{ product_Info|length }}</span>
                 </div>
             </div>
         </div>

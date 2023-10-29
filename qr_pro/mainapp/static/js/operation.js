@@ -145,3 +145,75 @@ headingsUpvTab.forEach((heading, index) => {
         iconUpvTab[index].classList.add('active');
     })
 })
+
+
+let barcodeValue = '';
+let scanCount;
+
+function getCSRFToken() {
+  const cookieValue = document.cookie
+    .split('; ')
+    .find(cookie => cookie.startsWith('csrftoken='));
+  return cookieValue ? cookieValue.split('=')[1] : null;
+}
+
+function highlightRows(value) {
+    console.log(value);
+    var cells = document.querySelectorAll('.operation-tab__table .GTIN');
+    cells.forEach(function(cell) {
+        var cleanedValue = value.replace(/[()\s]/g, "");
+        if (cell.textContent === cleanedValue) {
+            var row = cell.closest('tr');
+            if (row) {
+                row.classList.add('bg-green');
+            }
+        }
+    });
+}
+
+
+async function sendBarcodeValue(value) {
+  const url = '/operations/api/scan/'; // Замените на свой URL
+
+  const packInfoElement = document.querySelector('.operation-title__numbers span');
+  const marking_id = packInfoElement.textContent;
+  const data = { marking_id:marking_id, barcodeValue: value };
+
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json', // Указываем тип передаваемых данных (JSON)
+      'X-CSRFToken': getCSRFToken(),
+    },
+    body: JSON.stringify(data),
+  };
+
+  try {
+    const response = await fetch(url, options);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const responseData = await response.json();
+    if (responseData.is_status === 0) {
+        console.log('is_status:', responseData.is_status);
+    } else if (responseData.is_status === 1) {
+        highlightRows(responseData.gtin)
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+
+document.addEventListener('keypress', async function(event) {
+  const keyCode = event.keyCode || event.which;
+
+  barcodeValue += String.fromCharCode(keyCode); // Добавляем символ к barcodeValue при каждом нажатии клавиши
+
+  if (keyCode === 13) { // 13 соответствует клавише Enter
+    if (barcodeValue.trim() !== '') {
+      await sendBarcodeValue(barcodeValue.trim()); // Отправляем значение штрих-кода без лишних пробелов
+      barcodeValue = ''; // Сброс значения штрих-кода после отправки
+    }
+  }
+});

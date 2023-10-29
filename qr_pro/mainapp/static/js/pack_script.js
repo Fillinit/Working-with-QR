@@ -26,11 +26,16 @@ async function sendBarcodeValue(value) {
   try {
     const response = await fetch(url, options);
     responseData = await response.json();
-    packId = responseData.pack_Info.id;
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
-    console.log('Barcode value sent successfully.');
+
+    if (responseData.is_status === 1) {
+        packId = responseData.pack_Info.id;
+        window.location.href = `/packaging/${packId}/`;
+      } else {
+      // Код для случая '0'
+      }
   } catch (error) {
     console.error('Error:', error);
   }
@@ -40,15 +45,13 @@ async function sendBarcodeValue(value) {
 document.addEventListener('keypress', async function(event) {
   const keyCode = event.keyCode || event.which;
 
-  barcodeValue += String.fromCharCode(keyCode); // Добавляем символ к barcodeValue при каждом нажатии клавиши
+  barcodeValue += String.fromCharCode(keyCode);
 
-  if (keyCode === 13) { // 13 соответствует клавише Enter
+  if (keyCode === 13) {
     if (barcodeValue.trim() !== '') {
       console.log('barcodeValue', barcodeValue);
-      await sendBarcodeValue(barcodeValue.trim()); // Отправляем значение штрих-кода без лишних пробелов
-      barcodeValue = ''; // Сброс значения штрих-кода после отправки
-
-      window.location.href = `/packaging/${packId}/`; // Редирект на страницу с правильно подставленным packId
+      await sendBarcodeValue(barcodeValue.trim());
+      barcodeValue = '';
     }
   }
 });

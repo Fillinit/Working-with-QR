@@ -7,12 +7,7 @@
             <div class="header-left__btn"><i class="fa-solid fa-bars"></i></div>
             <div class="header-left__brand"><a href="{% url 'mainapp:index' %}"><img src="{% static 'img/tagosaur.png' %}" alt="logo"></a></div>
         </div>
-        <div class="header-right">
-            <div class="header-right__bell">
-                <i class="fa-solid fa-bell"></i><span>0</span>
-            </div>
-            <div class="header-right__user"><i class="fa-solid fa-user"></i></div>
-        </div>
+        
 </header>
 <main class="container main">
         {% include 'left_side_menu.html' %}
@@ -59,70 +54,124 @@
                     <h4 class="card-title">УПАКОВКИ</h4>
                     <div class="content-card__item">
                         <div class="card-subtitle">
-                            ВСЕГО УПАКОВОК (ВУ)
+                            ВСЕГО УПАКОВОК
                         </div>
                         <div class="card-info">
                             {{ vu }}
                         </div>
                     </div>
                     <div class="content-card__item">
-                        <div class="card-subtitle">
-                            ЗАПОЛНЕННЫЕ УПАКОВКИ (ЗУ)
+                        {% if zu == vu %}
+                        <div class="card-subtitle ">
+                            ЗАПОЛНЕННЫЕ УПАКОВКИ
+                        </div>
+                        <div class="card-info bg-green">
+                            {{ zu }}
+                        </div>
+                         {% else %}
+                        <div class="card-subtitle txt-red">
+                            ЗАПОЛНЕННЫЕ УПАКОВКИ
                         </div>
                         <div class="card-info">
                             {{ zu }}
                         </div>
+                        {% endif %}
                     </div>
                     <div class="content-card__item">
+                        {% if pu == 0 %}
                         <div class="card-subtitle">
-                            ПУСТЫЕ УПАКОВКИ (ПУ)
+                            ПУСТЫЕ УПАКОВКИ
+                        </div>
+                        <div class="card-info bg-green">
+                            {{ pu }}
+                        </div>
+                        {% else %}
+                        <div class="card-subtitle txt-red">
+                            ПУСТЫЕ УПАКОВКИ
                         </div>
                         <div class="card-info">
                             {{ pu }}
                         </div>
+                        {% endif %}
                     </div>
                     <div class="content-card__item">
+                        {% if nu == 0 %}
                         <div class="card-subtitle">
-                            НЕПОЛНЫЕ УПАКОВКИ (НУ)
+                            НЕПОЛНЫЕ УПАКОВКИ
+                        </div>
+                        <div class="card-info bg-green">
+                            {{ nu }}
+                        </div>
+                        {% else %}
+                        <div class="card-subtitle txt-red">
+                            НЕПОЛНЫЕ УПАКОВКИ
                         </div>
                         <div class="card-info">
                             {{ nu }}
                         </div>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="content-card">
                     <h4 class="card-title">МАСТЕР-УПАКОВКИ</h4>
                     <div class="content-card__item">
                         <div class="card-subtitle">
-                            ВСЕГО МАСТЕР-УПАКОВОК (ВМУ)
+                            ВСЕГО МАСТЕР-УПАКОВОК
                         </div>
                         <div class="card-info">
                             {{ vmu }}
                         </div>
                     </div>
                     <div class="content-card__item">
+                        {% if zmu == vmu %}
                         <div class="card-subtitle">
-                            ЗАПОЛНЕННЫЕ МАСТЕР-УПАКОВКИ (ЗМУ)
+                            ЗАПОЛНЕННЫЕ МАСТЕР-УПАКОВКИ
+                        </div>
+                        <div class="card-info bg-green">
+                            {{ zmu }}
+                        </div>
+                         {% else %}
+                        <div class="card-subtitle txt-red">
+                            ЗАПОЛНЕННЫЕ МАСТЕР-УПАКОВКИ
                         </div>
                         <div class="card-info">
                             {{ zmu }}
                         </div>
+                        {% endif %}
                     </div>
                     <div class="content-card__item">
-                        <div class="card-subtitle">
-                            ПУСТЫЕ МАСТЕР-УПАКОВКИ (ПМУ)
+                        {% if pmu == 0 %}
+                        <div class="card-subtitle ">
+                            ПУСТЫЕ МАСТЕР-УПАКОВКИ
+                        </div>
+                        <div class="card-info bg-green">
+                            {{ pmu }}
+                        </div>
+                        {% else %}
+                        <div class="card-subtitle txt-red">
+                            ПУСТЫЕ МАСТЕР-УПАКОВКИ
                         </div>
                         <div class="card-info">
                             {{ pmu }}
                         </div>
+                        {% endif %}
                     </div>
                     <div class="content-card__item">
+                        {% if nmu == 0 %}
                         <div class="card-subtitle">
-                            НЕПОЛНЫЕ МАСТЕР-УПАКОВКИ (НМУ)
+                            НЕПОЛНЫЕ МАСТЕР-УПАКОВКИ
+                        </div>
+                        <div class="card-info bg-green">
+                            {{ nmu }}
+                        </div>
+                        {% else %}
+                        <div class="card-subtitle txt-red">
+                            НЕПОЛНЫЕ МАСТЕР-УПАКОВКИ
                         </div>
                         <div class="card-info">
                             {{ nmu }}
                         </div>
+                        {% endif %}
                     </div>
 
 
@@ -137,6 +186,13 @@
                 </ul>
                 <div class="content-bar__items">
                     <div class="content-bar__items-task content-bar__item">
+                        <form method="post" action="{% url 'mainapp:print_pdf' %}">
+                            <div class="content-print__settings">
+                                {% csrf_token %}
+                                <input type="hidden" name="selected_checkboxes" value="{{ pm_file_path }}">
+                                <button class="btn" type="submit">Распечатать КМ</button>
+                            </div>
+                        </form>
                         <div class="content-scroll">
                             <table class="content-bar__table">
                                 <tr class="orders-table__items">
@@ -188,15 +244,15 @@
                                 </tr>
                                 {% for package in tasks %}
                                 <tr class="orders-table__item">
-                                    <td> {{ package.name_1 }} </td>
-                                    <td> {{ package.gtin }} </td>
-                                    <td> {{ package.name_2 }} </td>
-                                    <td>{{ package.container_1 }}</td>
-                                    <td>{{ package.count_1 }}</td>
-                                    <td>{{ package.container_2 }}</td>
-                                    <td>{{ package.count }}</td>
-                                    <td>{{ package.master_pack }}</td>
-                                    <td>{{ package.count_master_pack }}</td>
+                                    <td> <span>{{ package.name_1 }}</span> </td>
+                                    <td> <span>{{ package.gtin }} </span></td>
+                                    <td> <span>{{ package.name_2 }}</span> </td>
+                                    <td><span>{{ package.container_1 }}</span></td>
+                                    <td><span>{{ package.count_1 }}</span></td>
+                                    <td><span>{{ package.container_2 }}</span></td>
+                                    <td><span>{{ package.count }}</span></td>
+                                    <td><span>{{ package.master_pack }}</span></td>
+                                    <td><span>{{ package.count_master_pack }}</span></td>
                                 </tr>
                                 {% endfor %}
                             </table>
@@ -207,7 +263,7 @@
                         <div class="content-print__settings">
                                 {% csrf_token %}
                                 <input type="number" name="copy_count" placeholder="Распечатать КМ" value=1>
-                                <button type="submit">Распечатать КМ</button>
+                                <button class="btn" type="submit">Распечатать КМ</button>
                         </div>
                         <div class="content-print__input">
                             <input type="text" placeholder="Введите текст для поиска...">
@@ -246,11 +302,11 @@
                                     <td class="width-10px">
                                         <input type="checkbox" class="checkbox-select" name="selected_checkboxes" value="{{ package.file_name }}">
                                     </td>
-                                    <td>{{ package.art }}</td>
-                                    <td>{{ package.name }}</td>
-                                    <td>{{ package.count }}</td>
-                                    <td>{{ package.gtin }}</td>
-                                    <td>{{ package.print_1 }}</td>
+                                    <td><span>{{ package.art }}</span></td>
+                                    <td><span>{{ package.name }}</span></td>
+                                    <td><span>{{ package.count }}</span></td>
+                                    <td><span>{{ package.gtin }}</span></td>
+                                    <td><span>{{ package.print_1 }}</span></td>
                                 </tr>
                                 {% endfor %}
                                 <input type="hidden" id="selected-checkboxes" name="selected_checkboxes" value="">
@@ -265,18 +321,18 @@
                         <form method="post" action="{% url 'mainapp:print_pdf' %}">
                         <div class="content-pack__settings">
                             {% csrf_token %}
-                            <button type="submit">Распечатать КМ</button>
+                            <button class="btn" type="submit">Распечатать КМ</button>
                         </div>
                         <div class="content-pack__input">
                             <input type="text" placeholder="Введите текст для поиска...">
                             <button class="btn">Искать</button>
                         </div>
 
-                        <div class="content-scroll">
+                        <!-- <div class="content-scroll"> -->
                             <table class="content-bar__table">
                                 <tr class="orders-table__items">
                                     <th class="width-10px"></th>
-                                    <th class="width-10px d-flex">
+                                    <th class="width-10px">
                                         <div class="orders-table__item-head">
                                             <div class="grow-2"> Спецификация </div>
                                         </div>
@@ -293,7 +349,7 @@
                                     </th>
                                     <th>
                                         <div class="orders-table__item-head">
-                                            <div class="grow-2">Разница </div>
+                                            <div class="grow-2">Отсканировано </div>
                                         </div>
                                     </th>
                                 </tr>
@@ -302,15 +358,19 @@
                                         <td class="width-10px">
                                             <input type="checkbox" class="checkbox-select_2" name="selected_checkboxes_2" value="{{package.file_name}}">
                                         </td>
-                                        <td><a href="{% url 'mainapp:pack_more' package.id %}">{{ package.spec }}</a></td>
-                                        <td>{{ package.sscc }}</td>
-                                        <td>{{ package.count }}</td>
-                                        <td>{{ package.difference }}</td>
+                                        <td><span><a href="{% url 'mainapp:pack_more' package.id %}">{{ package.spec }}</a></span></td>
+                                        <td><span>{{ package.sscc }}</span></td>
+                                        <td><span>{{ package.count }}</span></td>
+                                        {% if package.difference == package.count %}
+                                        <td class="bg-green"><span>{{ package.difference }}</span></td>
+                                        {% else %}
+                                        <td class="bg-red"><span>{{ package.difference }}</span></td>
+                                        {% endif %}
                                     </tr>
                                 {% endfor %}
                                 <input type="hidden" id="selected-checkboxes_2" name="selected_checkboxes_2" value="">
                             </table>
-                        </div>
+                        <!-- </div> -->
                         </form>
                         <div class="content-pack__teblainfo">
                             Кол-во: {{ vu }}
@@ -320,7 +380,7 @@
                         <form method="post" action="{% url 'mainapp:print_pdf' %}">
                         <div class="content-master__settings">
                             {% csrf_token %}
-                            <button type="submit">Распечатать КМ</button>
+                            <button class="btn" type="submit">Распечатать КМ</button>
                         </div>
                         <div class="content-master__input">
                             <input type="text" placeholder="Введите текст для поиска...">
@@ -347,7 +407,7 @@
                                     </th>
                                     <th>
                                         <div class="orders-table__item-head">
-                                            <div class="grow-2">Разница</div>
+                                            <div class="grow-2">Отсканировано</div>
                                         </div>
                                     </th>
                                 </tr>
@@ -371,11 +431,19 @@
                                             <div class="grow-2">{{ package.count }}</div>
                                         </div>
                                     </td>
-                                    <td>
-                                        <div class="orders-table__item-head">
-                                            <div class="grow-2">{{ package.difference }}</div>
-                                        </div>
-                                    </td>
+                                     {% if package.difference == package.count %}
+                                        <td class="bg-green">
+                                            <div class="orders-table__item-head">
+                                                <div class="grow-2">{{ package.difference }}</div>
+                                            </div>
+                                        </td>
+                                    {% else %}
+                                        <td class="bg-red">
+                                            <div class="orders-table__item-head">
+                                                <div class="grow-2 bg-red">{{ package.difference }}</div>
+                                            </div>
+                                        </td>
+                                    {% endif %}
                                 </tr>
                                 {% endfor %}
                                 <input type="hidden" id="selected-checkboxes_3" name="selected_checkboxes_3" value="">

@@ -2,23 +2,20 @@
 {% load static %}
 
 {% block content %}
+
 <body>
     <header class="header container">
         <div class="header-left">
             <div class="header-left__btn"><i class="fa-solid fa-bars"></i></div>
-            <div class="header-left__brand"><a href="{% url 'mainapp:index' %}"><img src="{% static 'img/tagosaur.png' %}" alt="logo"></a></div>
+            <div class="header-left__brand"><a href="{% url 'mainapp:index' %}"><img
+                        src="{% static 'img/tagosaur.png' %}" alt="logo"></a></div>
         </div>
-        <div class="header-right">
-            <div class="header-right__bell">
-                <i class="fa-solid fa-bell"></i><span>0</span>
-            </div>
-            <div class="header-right__user"><i class="fa-solid fa-user"></i></div>
-        </div>
+        
     </header>
     <!-- Header -->
     <!--Main-->
     <main class="main container">
-         {% include 'left_side_menu.html' %}
+        {% include 'left_side_menu.html' %}
         <div class="pack">
             <div class="pack-bar">
                 <div class="pack-bar__code">
@@ -32,11 +29,14 @@
                     </div>
                 </div>
                 <div class="pack-bar__info">
+                    <p class="bg-orange error-info"></p>
                     <h4 class="section-subtitle">Нужно</h4>
                     <p class="section-number">{{ count }}</p>
                     <h4 class="section-subtitle">Собрано</h4>
                     <p class="section-number bg-orange" data-scan-count="{{ Scan_count }}">{{ Scan_count }}</p>
-                    <p class="section-text">Родительская мастер-упаковка <br> <a href="{% url 'mainapp:orders_more' parents.id %}">id: {{ parents.id }} {{ parents.name }} </a></p>
+                    <p class="section-text">Родительская мастер-упаковка <br> <a
+                            href="{% url 'mainapp:orders_more' parents.id %}">id: {{ parents.id }} {{ parents.name }}
+                        </a></p>
                     <div class="pack-tab">
                         <ul class="pack-tab__btns">
                             <li class="btn">KM</li>
@@ -44,8 +44,15 @@
                         </ul>
                     </div>
                     <div class="pack-tab__km pack-content">
+
+                        <form method="post" action="{% url 'mainapp:print_pdf' %}">
+                            {% csrf_token %}
+                        <input type="hidden" name="print_km" class="print_km" value="{{ page_list }}">
+                        <input type="hidden" name="last_page" class="last_page" value="">
+                        <input type="hidden" name="save_page" class="save_page" value="{{ save_page }}">
+                        <input type="hidden" name="name_file" class="name_file" value="{{ gtin }}">
                         <div class="pack-tab__km-settings">
-                            <button type="submit">Распечатать </button>
+                            <button class="btn" type="submit">Распечатать </button>
                         </div>
                         <div class="content-scroll">
                             <table class="pack-tab__table">
@@ -53,7 +60,7 @@
                                     <th class="width-10px">
                                         <div class="grow-02"></div>
                                     </th>
-                                    <th>
+                                    <th class="maxw-50">
                                         <div class="orders-table__item-head">
                                             <div class="grow-2">sgtin</div>
                                         </div>
@@ -75,9 +82,9 @@
                                         <div class="grow-02">{{ forloop.counter }}</div>
                                     </td>
                                     {% if package.status %}
-                                    <td class="bg-green SGTIN">{{package.SGTIN}}</td>
-                                    <td class="bg-green">{{package.name}}</td>
-                                    <td class="bg-green">Отсканировано</td>
+                                    <td class="bg-green SGTIN"><span>{{package.SGTIN}}</span></td>
+                                    <td class="bg-green"><span>{{package.name}}</span></td>
+                                    <td class="bg-green"><span>Отсканировано</span></td>
                                     {% else %}
                                     <td class="SGTIN">{{package.SGTIN}}</td>
                                     <td>{{package.name}}</td>
@@ -87,62 +94,68 @@
                                 {% endfor %}
                             </table>
                         </div>
+                        </form>
 
                         <div class="pack-tab__data text-center"></div>
                         <div class="pack-tab__tableinfo">
-                            Count: <span>0</span>
+                            Кол-во: <span>{{ codeMark|length }}</span>
                         </div>
                     </div>
                     <div class="pack-tab__packing pack-content">
-                        <div class="pack-tab__packing-settings">
-                            <button type="submit">Распечатать </button>
-                        </div>
-                        <div class="content-scroll">
-                            <table class="pack-tab__table">
-                                <tr class="orders-table__items">
-                                    <th class="width-10px"></th>
-                                    <th>
-                                        <div class="orders-table__item-head">
-                                            <div class="grow-2">sscc</div>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div class="orders-table__item-head">
-                                            <div class="grow-2">по спецификации</div>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div class="orders-table__item-head">
-                                            <div class="grow-2">несканировано</div>
-                                        </div>
-                                    </th>
 
-                                </tr>
-                                {% for package in Package %}
-                                <tr class="orders-table__item">
-                                    <td class="width-10px">
-                                        <div class="grow-02"><input type="checkbox"></div>
-                                    </td>
-                                    {% if package.difference == 0 %}
-                                    <td class="bg-green sscc"><a href="{% url 'mainapp:pack_more' package.id %}">{{ package.SSCC }}</a></td>
-                                    <td class="bg-green">{{package.count}}</td>
-                                    <td class="bg-green difference"><span>{{package.difference}}</span></td>
-                                    {% else %}
-                                    <td class="sscc"><a href="{% url 'mainapp:pack_more' package.id %}">{{ package.SSCC }}</a></td>
-                                    <td>{{package.count}}</td>
-                                    <td class="difference"><span>{{package.difference}}</span></td>
-                                    {% endif %}
-                                </tr>
-                                {% endfor %}
-                            </table>
+                        <form method="post" action="{% url 'mainapp:print_pdf' %}">
+                            {% csrf_token %}
+                        <div class="pack-tab__packing-settings">
+                            <button class="btn" type="submit">Распечатать </button>
                         </div>
+                        <table class="pack-tab__table">
+                            <tr class="orders-table__items">
+                                <th class="width-10px"></th>
+                                <th>
+                                    <div class="orders-table__item-head">
+                                        <div class="grow-2">sscc</div>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="orders-table__item-head">
+                                        <div class="grow-2">по спецификации</div>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="orders-table__item-head">
+                                        <div class="grow-2">несканировано</div>
+                                    </div>
+                                </th>
+
+                            </tr>
+                            {% for package in Package %}
+                            <tr class="orders-table__item">
+                                <td class="width-10px">
+                                    <div class="grow-02">
+                                        <input type="checkbox" class="checkbox-select_2" name="selected_checkboxes_2" value="{{ package.file_name }}">
+                                    </div>
+                                </td>
+                                {% if package.difference == 0 %}
+                                <td class="bg-green sscc"><a href="{% url 'mainapp:pack_more' package.id %}">{{ package.SSCC }}</a></td>
+                                <td class="bg-green">{{package.count}}</td>
+                                <td class="bg-green difference"><span>{{package.difference}}</span></td>
+                                {% else %}
+                                <td class="sscc"><a href="{% url 'mainapp:pack_more' package.id %}">{{ package.SSCC }}</a></td>
+                                <td>{{package.count}}</td>
+                                <td class="difference"><span>{{package.difference}}</span></td>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+                            <input type="hidden" id="selected-checkboxes_2" name="selected_checkboxes_2" value="">
+                        </table>
+                        </form>
+
                         <div class="pack-tab__data text-center"></div>
                         <div class="pack-tab__tableinfo">
-                            Count: <span>0</span>
+                            Кол-во: <span> {{ Package|length }}</span>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </main>

@@ -20,9 +20,26 @@
     background: green;
     color: #fff;
 }
-
 .bg-green span {
     color: #fff;
+}
+.bg-orange {
+    background: orange;
+}
+.bg-orange span {
+    color: #fff;
+}
+.bg-red {
+    background: red;
+    color: #fff;
+}
+.bg-red span {
+    color: #fff;
+}
+
+.txt-red{
+
+    color: red;
 }
 
 .text-end {
@@ -41,15 +58,19 @@
     width: 100%;
     flex-basis: 100%;
 }
+
 .content-scroll {
     overflow-x: scroll;
 }
+
 .print-icon {
     display: none;
 }
+
 .print-icon.active {
     display: block;
 }
+
 .orders-table__item-head {
     font-size: 12px;
 }
@@ -249,6 +270,20 @@
     padding-left: 20px;
 }
 
+.operation-search .btn {
+    background: none;
+    padding: 5px 15px;
+    cursor: pointer;
+}
+
+.operation-search .btn:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.operation-search .btn:focus {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
 .operation-title {
     display: flex;
     justify-content: space-between;
@@ -258,15 +293,23 @@
 
 .operation-title__btns {
     display: flex;
-
+    justify-content: flex-end;
 }
 
 .operation-title__btns .btn {
-    width: 30px;
+    padding: 5px 10px;
     background: none;
     border: 1px solid rgba(0, 0, 0, 0.5);
     margin-left: 5px;
     cursor: pointer;
+}
+
+.operation-title__btns .btn:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.operation-title__btns .btn:focus {
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .operation-title__btns .btn img {
@@ -284,17 +327,20 @@
     color: #fff;
 }
 
-.operation-title__btns-rights {
-    margin-left: 10px;
-}
+
 
 .operation-title__btns-rights .btn {
-    padding: 7px;
+    padding: 10px 10px;
     border-radius: 5px;
     border: 1px solid rgba(0, 0, 0, 0.2);
     cursor: pointer;
     background: none;
     color: rgba(0, 0, 0, 0.5);
+}
+
+.operation-title__numbers a {
+    text-decoration: none;
+    color: #000;
 }
 
 .operation-bar {
@@ -313,7 +359,9 @@
 }
 
 .operation-info__subtitle {
-    color: rgba(0, 0, 0, 0.2);
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 18px;
 }
 
 .operation-btns {
@@ -407,23 +455,31 @@
 .operation-tab__km-input input:focus {
     border-color: #5189d3;
 }
+
 .operation-tab__km-input .btn {
     padding: 5px 15px;
-    background:none;
-    border:1px solid rgba(0, 0, 0, 0.5);
+    background: none;
+    border: 1px solid rgba(0, 0, 0, 0.5);
     cursor: pointer;
 }
+
 .operation-tab__km-input .btn:hover {
-    background:rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.2);
 }
+
 .operation-tab__km-input .btn:focus {
-    background:rgba(0, 0, 0, 0.1)
+    background: rgba(0, 0, 0, 0.1)
 }
 
 .operation-tab__table,
-.upv-tab__table,
-.upakovka-tab__table,
 .merchandise-tab__table {
+    width: 100%;
+    margin-top: 10px;
+    border-collapse: collapse;
+}
+
+.upv-tab__table,
+.upakovka-tab__table {
     width: 120%;
     margin-top: 10px;
     border-collapse: collapse;
@@ -461,6 +517,7 @@
     list-style: none;
     cursor: pointer;
 }
+
 .svoystvo-btns .btn.active {
     border-bottom: 1px solid #fff;
 }
@@ -469,17 +526,21 @@
     width: 100%;
     border-collapse: collapse;
 }
+
 .operation-content {
     border: 1px solid rgba(0, 0, 0, 0.5);
     display: none;
 }
+
 .operation-content.active {
     display: block;
 }
+
 .svoystvo-content {
     border: 1px solid rgba(0, 0, 0, 0.5);
     display: none;
 }
+
 .svoystvo-content.active {
     display: block;
 }

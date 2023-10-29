@@ -84,3 +84,8 @@ setupCheckboxListeners('.checkbox-select_2', 'selected-checkboxes_2', 'selected-
 setupCheckboxListeners('.checkbox-select_3', 'selected-checkboxes_3', 'selected-values-display_3');
 
 
+let disappearingBtn = document.getElementById('submitButton')
+    disappearingBtn.addEventListener('click',()=>{
+        disappearingBtn.style.display = 'none'
+})
+

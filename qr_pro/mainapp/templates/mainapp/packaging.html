@@ -8,12 +8,6 @@
             <div class="header-left__btn"><i class="fa-solid fa-bars"></i></div>
             <div class="header-left__brand"><a href="{% url 'mainapp:index' %}"><img src="{% static '/img/tagosaur.png' %}" alt="logo"></a></div>
         </div>
-        <div class="header-right">
-            <div class="header-right__bell">
-                <i class="fa-solid fa-bell"></i><span>0</span>
-            </div>
-            <div class="header-right__user"><i class="fa-solid fa-user"></i></div>
-        </div>
     </header>
     <!-- Header -->
     <!--Main-->
@@ -25,11 +19,14 @@
             <div class="packs">
                 <h2 class="section-title">Упаковки (отсканируйте SSCC)</h2>
                 <div class="packs-settings">
-                    <select value="Mode" placeholder="Mode">
-                        <option value="active">Без фильтра</option>
-                        <option value="closed">Неполные упаковки (созданные)</option>
-
-                    </select>
+                    <form action="{% url 'mainapp:packaging' %}" method="post">
+                        {% csrf_token %}
+                        <select name="order_status">
+                            <option value="all">Без фильтра</option>
+                            <option value="incomplete_created">Неполные упаковки (созданные)</option>
+                        </select>
+                        <button class="btn" type="submit">Отправить</button>
+                    </form>
                 </div>
                 <table class="packs-table">
                     <tr class="packs-table__items">
@@ -64,13 +61,17 @@
                     <tr class="packs-table__item">
                             <td class="width-20px">{{ forloop.counter }}</td>
                             <td><a href="{% url 'mainapp:pack_more' package.id %}">{{ package.sscc }}</a></td>
-                            <td><input type="number">{{ package.n_z }}</td>
-                            <td>{{ package.comment }}</td>
-                            <td>{{ package.count }}</td>
-                            <td>{{ package.count }}</td>
-                            <td>{{ package.count_scan }}</td>
-                            <td>1/1</td>
-                            <td>{{ package.contract }}</td>
+                            <td><span>{{ package.n_z }}</span></td>
+                            <td><span>{{ package.comment }}</span></td>
+                            <td class="bg-green"><span>{{ package.count }}</span></td>
+                            <td class="bg-green"><span>{{ package.count }}</span></td>
+                            {% if package.count_scan == 0 %}
+                            <td class="bg-red"><span>{{ package.count_scan }}</span></td>
+                            {% else %}
+                            <td class="bg-green"><span>{{ package.count_scan }}</span></td>
+                            {% endif %}
+                            <td><span>1/1</span></td>
+                            <td><span>{{ package.contract }}</span></td>
                     </tr>
                     {% endfor %}
                 </table>

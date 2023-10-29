@@ -20,13 +20,25 @@
     background: green;
     color: #fff;
 }
-
 .bg-green span {
     color: #fff;
 }
-
 .bg-orange {
     background: orange;
+}
+.bg-orange span {
+    color: #fff;
+}
+.bg-red {
+    background: red;
+    color: #fff;
+}
+.bg-red span {
+    color: #fff;
+}
+
+.txt-red{
+    color: red;
 }
 
 .text-end {
@@ -36,15 +48,19 @@
 .text-center {
     text-align: center;
 }
+
 .content-scroll {
     overflow-x: scroll;
 }
+
 .print-icon {
     display: none;
 }
+
 .print-icon.active {
     display: block;
 }
+
 /* header */
 .header {
     padding-top: 10px;
@@ -136,13 +152,39 @@
     background-color: #28A745;
     color: #fff;
 }
-
+.SGTIN {
+   overflow-x: scroll; 
+}
+.SGTIN::-webkit-scrollbar{
+    height: 10px;
+    top: 5px;
+    background:rgba(0, 0, 0, 0.2);
+}
+.SGTIN::-webkit-scrollbar-thumb {
+    background:rgba(0, 0, 0, 0.5);
+}
 .pack {
     padding-left: 20px;
     flex-basis: 80%;
     margin-bottom: 100px;
 }
-
+.packs-table__item td a {
+    text-decoration: none;
+    color:rgba(0, 0, 0, 1);
+    font-weight: 700;
+    transition: 0.3s;
+}
+.packs-table__item td a:hover {
+    color:#5189d3;
+}
+.section-text a {
+    text-decoration: none;
+    color:#000;
+    transition: 0.3s;
+}
+.section-text a:hover {
+    color:#5189d3;
+}
 .pack-bar__code {
     display: flex;
     justify-content: space-between;
@@ -150,8 +192,8 @@
 }
 
 .pack-bar__code-numbers span {
-    color: rgba(0, 0, 0, 0.5);
-    font-size: 12px;
+    color: rgb(0, 0, 0);
+    font-size: 1px;
 }
 
 .pack-bar__code-btns .btn {
@@ -182,6 +224,10 @@
     color: rgba(0, 0, 0, 0.5);
     margin: 10px 0;
     font-weight: 300;
+}
+
+.pack-bar__info .error-info {
+    font-size: 20px;
 }
 
 .pack-bar__info .section-number {
@@ -215,21 +261,36 @@
 }
 
 .pack-tab__km-settings {
-    margin-top: 20px;
-    margin-right: 20px;
+    margin-top: 10px;
+    margin-right: 10px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
 }
 
+.pack-tab__km td {
+    max-width: 200px;
+    color: #fff;
+    /* overflow-x: scroll; */
+}
+
+/* .pack-tab__km td::-webkit-scrollbar {
+    height: 10px;
+    background:rgba(0, 0, 0, 0.5);;
+} */
 .pack-tab__km-settings .btn {
     background: none;
-    border-left: none;
-    border-bottom: none;
-    border-top: none;
-    border-right: 1px solid rgba(0, 0, 0, 0.5);
-    margin-right: 10px;
-    padding-right: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    padding: 5px 15px;
+    cursor: pointer;
+}
+
+.pack-tab__km-settings .btn:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.pack-tab__km-settings .btn:focus {
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .pack-tab__km-settings .btn img {
@@ -258,18 +319,22 @@
 .pack-tab__km-input input:focus {
     border-color: #5189d3;
 }
+
 .pack-tab__km-input .btn {
     padding: 5px 15px;
-    background:none;
-    border:1px solid rgba(0, 0, 0, 0.5);
+    background: none;
+    border: 1px solid rgba(0, 0, 0, 0.5);
     cursor: pointer;
 }
+
 .pack-tab__km-input .btn:hover {
-    background-color:rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.2);
 }
+
 .pack-tab__km-input .btn:focus {
-    background-color:rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.1);
 }
+
 .pack-tab__data {
     margin: 20px 0;
     width: 100%;
@@ -278,7 +343,7 @@
 .pack-tab__tableinfo {
     padding: 10px 50px;
     background: #d7e2f1;
-    width: 120%;
+    /* width: 120%; */
 }
 
 /* pack-tab__packing */
@@ -292,7 +357,21 @@
     align-items: center;
 }
 
-.pack-tab__packing-settings .btn,
+.pack-tab__packing-settings .btn {
+    background: none;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    padding: 5px 15px;
+    cursor: pointer;
+}
+
+.pack-tab__packing-settings .btn:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.pack-tab__packing-settings .btn:focus {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
 .property-operation__settings .btn {
     background: none;
     border-left: none;
@@ -339,48 +418,61 @@
 .property-all__input input:focus {
     border-color: #5189d3;
 }
+
 .property-all__input .btn {
     padding: 5px 15px;
-    background:none;
-    border:1px solid rgba(0, 0, 0, 0.5);
+    background: none;
+    border: 1px solid rgba(0, 0, 0, 0.5);
     cursor: pointer;
 }
-.property-all__input .btn:hover{
-    background:rgba(0, 0, 0, 0.2);
-}
-.property-all__input .btn:focus{
-    background:rgba(0, 0, 0, 0.1);
-}
-.pack-tab__packing-input input:focus {
-    border-color: #5189d3;
-}
-.pack-tab__packing-input .btn {
-    padding: 5px 15px;
-    background:none;
-    border:1px solid rgba(0, 0, 0, 0.5);
-    cursor: pointer;
-}
-.pack-tab__packing-input .btn:hover {
-    background:rgba(0, 0, 0, 0.2);
-}
-.pack-tab__packing-input .btn:focus {
-    background:rgba(0, 0, 0, 0.1);
-}
-.property-all__input .bt,.property-operation__input .btn  {
-    padding: 5px 15px;
-    background:none;
-    border:1px solid rgba(0, 0, 0, 0.5);
-    cursor: pointer;
-}
+
 .property-all__input .btn:hover {
     background: rgba(0, 0, 0, 0.2);
 }
+
 .property-all__input .btn:focus {
-    background:rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.1);
 }
+
+.pack-tab__packing-input input:focus {
+    border-color: #5189d3;
+}
+
+.pack-tab__packing-input .btn {
+    padding: 5px 15px;
+    background: none;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+.pack-tab__packing-input .btn:hover {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.pack-tab__packing-input .btn:focus {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.property-all__input .bt,
+.property-operation__input .btn {
+    padding: 5px 15px;
+    background: none;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+.property-all__input .btn:hover {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.property-all__input .btn:focus {
+    background: rgba(0, 0, 0, 0.1);
+}
+
 .property-operation__input .btn:hover {
     background: rgba(0, 0, 0, 0.2);
 }
+
 .property-operation__input .btn:focus {
     background: rgba(0, 0, 0, 0.1);
 }
@@ -528,13 +620,18 @@
 }
 
 .pack-tab__table {
-    width: 120%;
+    width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
 }
 
 .orders-table__items th {
     font-size: 12px;
+}
+
+.orders-table__items td,
+.orders-table__items th {
+    max-width: 50%;
 }
 
 .orders-table__item td {

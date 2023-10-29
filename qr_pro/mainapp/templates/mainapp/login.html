@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+{% load static %}
+<meta charset="UTF-8">
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #eec0c6;
+            background-image: linear-gradient(315deg, #eec0c6 0%, #7ee8fa 74%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .login {
+            width: 450px;
+            position: absolute;
+            padding: 50px;
+            background-color: #acabb0;
+            background-image: linear-gradient(315deg, #acabb0 0%, #e01c34 74%);
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            flex-direction: column;
+            border-radius: 5px;
+            box-shadow: 5px 5px 50px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .section-form {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .login-name,
+        .login-password {
+            margin: 20px 0;
+            width: 100%;
+            height: 30px;
+            background: none;
+            border-radius: 5px;
+            border: 2px solid #fff;
+            padding: 5px;
+        }
+
+        .login-name::placeholder,
+        .login-password::placeholder {
+            color: #fff;
+        }
+
+        .login-name:focus {
+            background: rgba(255, 255, 255, 0.4);
+            border: 2px solid #fff;
+            outline: none;
+        }
+
+        .login-password:focus {
+            background: rgba(255, 255, 255, 0.4);
+            border: 2px solid #fff;
+            outline: none;
+        }
+
+        .login-btn {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-btn .btn {
+            padding: 10px 30px;
+            background: none;
+            border: 2px solid #fff;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .login-btn .btn:focus {
+            background: rgba(255, 255, 255, 0.4);
+        }
+    </style>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+
+<body>
+    <div class="login">
+        <h2 class="section-title">Авторизация</h2>
+        <form class="section-form" action="{% url 'mainapp:log_in' %}" method="POST">
+            {% csrf_token %}
+            <input class="login-name" type="text" name="login_in" placeholder="Введите логин">
+            <input class="login-password" type="password" name="psw" placeholder="Введите пароль">
+            <div class="login-btn">
+                <button class="btn" type="submit">Войти</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

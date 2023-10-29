@@ -99,18 +99,18 @@ function getCSRFToken() {
   return cookieValue ? cookieValue.split('=')[1] : null;
 }
 
-function highlightRows(value) {
+function highlightRows(value, rowClass, newStatus) {
     var cells = document.querySelectorAll('.pack-tab__table .SGTIN');
     cells.forEach(function(cell) {
         var cleanedValue = value.replace(/[()\s]/g, "");
         if (cell.textContent === cleanedValue) {
             var row = cell.closest('tr');
             if (row) {
-                row.classList.add('bg-green');
+                row.setAttribute('class', 'orders-table__item ' + rowClass);
 
                 var statusCell = row.querySelector('.status');
                 if (statusCell) {
-                    statusCell.textContent = 'Отсканировано'; // Изменение текста
+                    statusCell.textContent = newStatus; // Изменение текста
                 }
             }
         }
@@ -118,9 +118,9 @@ function highlightRows(value) {
 }
 
 
-function updateDifference(value, newDifference) {
-    var ssccCells = document.querySelectorAll('.pack-tab__table .sscc');
 
+function updateDifference(value, newDifference, rowClass) {
+    var ssccCells = document.querySelectorAll('.pack-tab__table .sscc');
     ssccCells.forEach(function(cell) {
         var cleanedValue = value.replace(/[()\s]/g, "");
         if (cell.textContent === cleanedValue) {
@@ -131,7 +131,9 @@ function updateDifference(value, newDifference) {
                     differenceCell.textContent = newDifference;
 
                     if (parseInt(newDifference) === 0) {
-                        row.classList.add('bg-green');
+                        row.classList.add(rowClass);
+                    } else {
+                        row.classList.remove(rowClass);
                     }
                 }
             }
@@ -139,13 +141,73 @@ function updateDifference(value, newDifference) {
     });
 }
 
+function reverseRemoveFromPageList(number) {
+    var inputElement_print_km = document.querySelector(".print_km");
+    var inputElement_last_page = document.querySelector(".last_page");
+    var inputElement_save_page = document.querySelector(".save_page");
+
+    var pageListStr_print_km = inputElement_print_km.value;
+    var pageListStr_save_page = inputElement_save_page.value;
+
+    var pageList_print_km = JSON.parse(pageListStr_print_km);
+    var pageList_save_page = JSON.parse(pageListStr_save_page);
+
+    var index_save_page = pageList_save_page.indexOf(number.toString());
+
+    if (index_save_page !== -1) {
+        pageList_print_km.push(number.toString());
+        pageList_save_page.splice(index_save_page, 1);
+
+        var pageListStrUpdated_print_km = JSON.stringify(pageList_print_km);
+        var pageListStrUpdated_save_page = JSON.stringify(pageList_save_page);
+
+        inputElement_print_km.value = pageListStrUpdated_print_km;
+        inputElement_save_page.value = pageListStrUpdated_save_page;
+        inputElement_last_page.value = '';
+    }
+}
+
+
+function removeFromPageList(number) {
+    var inputElement_print_km = document.querySelector(".print_km");
+    var inputElement_last_page = document.querySelector(".last_page");
+    var inputElement_save_page = document.querySelector(".save_page");
+
+    var pageListStr_print_km = inputElement_print_km.value;
+    var pageListStr_save_page = inputElement_save_page.value;
+
+    var pageList_print_km = JSON.parse(pageListStr_print_km);
+    var pageList_save_page = JSON.parse(pageListStr_save_page);
+
+    var index = pageList_print_km.indexOf(number.toString());
+
+    if (index !== -1) {
+        pageList_save_page.push(number.toString());
+        pageList_print_km.splice(index, 1);
+
+        var pageListStrUpdated_print_km = JSON.stringify(pageList_print_km);
+        var pageListStrUpdated_save_page = JSON.stringify(pageList_save_page);
+
+        inputElement_print_km.value = pageListStrUpdated_print_km;
+        inputElement_save_page.value = pageListStrUpdated_save_page;
+        inputElement_last_page.value = number;
+    }
+}
+
+
+
 
 async function sendBarcodeValue(value) {
   const url = '/pro/packaging/api/scan/'; // Замените на свой URL
 
-  const packInfoElement = document.getElementById('packInfo');
-  const pack_id = packInfoElement.textContent;
-  const data = { pack_id:pack_id, barcodeValue: value };
+  const pack_id = document.getElementById('packInfo').textContent;
+  const last_page = document.querySelector('.last_page').value;
+  const save_page = document.querySelector('.save_page').value;
+  const name_file = document.querySelector('.name_file').value;
+
+  const data = { pack_id:pack_id, barcodeValue: value,
+                 last_page:last_page, save_page:save_page,
+                 name_file:name_file };
 
   const options = {
     method: 'POST',
@@ -162,9 +224,30 @@ async function sendBarcodeValue(value) {
       throw new Error('Network response was not ok');
     }
     const responseData = await response.json();
-    updateScanCount(responseData.Scan_count); // Обновляем значение Scan_count на странице
-    highlightRows(value)
-    updateDifference(pack_id, responseData.New_difference)
+    if (responseData.is_status === '001') {
+        window.location.reload();
+    } else if (responseData.is_status === '002') {
+        highlightRows(responseData.value_gtin, 'bg-while', 'Несканировано');
+        updateDifference(responseData.page, responseData.New_difference, '');
+        reverseRemoveFromPageList(responseData.page)
+        var pElement = document.querySelector('.section-number.bg-orange');
+        var currentScanCount = parseInt(pElement.textContent);
+
+        if (!isNaN(currentScanCount)) {
+            var newScanCount = currentScanCount - 1;
+            pElement.textContent = newScanCount;
+        }
+    } else if (responseData.is_status === '003') {
+        window.location.href = `/packaging/`;
+    }else if (responseData.is_status === '0') {
+         const errorInfoElement = document.querySelector('.error-info');
+         errorInfoElement.textContent = responseData.txt;
+    }else{
+        removeFromPageList(responseData.page);
+        updateScanCount(responseData.Scan_count);
+        highlightRows(value, 'bg-green', 'Отсканировано');
+        updateDifference(pack_id, responseData.New_difference, 'bg-green');
+    }
   } catch (error) {
     console.error('Error:', error);
   }
@@ -189,3 +272,30 @@ document.addEventListener('keypress', async function(event) {
     }
   }
 });
+
+
+function setupCheckboxListeners(checkboxClass, hiddenInputId, displayId) {
+    const checkboxes = document.querySelectorAll(checkboxClass);
+
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', () => {
+            updateHiddenInput(checkboxes, hiddenInputId, displayId);
+        });
+    });
+}
+
+function updateHiddenInput(checkboxes, hiddenInputId, displayId) {
+    const selectedValues = Array.from(checkboxes)
+        .filter(checkbox => checkbox.checked)
+        .map(checkbox => checkbox.getAttribute('value'))
+        .join(',');
+
+    const hiddenInput = document.getElementById(hiddenInputId);
+    hiddenInput.value = selectedValues;
+
+    const selectedValuesDisplay = document.getElementById(displayId);
+    selectedValuesDisplay.textContent = selectedValues;
+}
+
+// Использование для первого набора
+setupCheckboxListeners('.checkbox-select_2', 'selected-checkboxes_2', 'selected-values-display_2');

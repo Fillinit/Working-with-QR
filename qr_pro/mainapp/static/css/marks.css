@@ -20,6 +20,19 @@
 .bg-green span {
     color: #fff;
 }
+.bg-orange {
+    background: orange;
+}
+.bg-orange span {
+    color: #fff;
+}
+.bg-red {
+    background: red;
+    color: #fff;
+}
+.bg-red span {
+    color: #fff;
+}
 .d-flex {
     width: 100%;
     display: flex;

@@ -8,12 +8,6 @@
             <div class="header-left__btn"><i class="fa-solid fa-bars"></i></div>
             <div class="header-left__brand"><a href="{% url 'mainapp:index' %}"><img src="{% static '/img/tagosaur.png' %}" alt="logo"></a></div>
         </div>
-        <div class="header-right">
-            <div class="header-right__bell">
-                <i class="fa-solid fa-bell"></i><span>0</span>
-            </div>
-            <div class="header-right__user"><i class="fa-solid fa-user"></i></div>
-        </div>
     </header>
     <!-- Header -->
     <!--Main-->
@@ -23,7 +17,7 @@
             <!-- Orders-->
             <div class="packs">
                 <h2 class="section-title">Добавить маркировку</h2>
-                <div class="orders-search">
+                <div class="add-order__search">
                     <form action="{% url 'mainapp:orders_save' %}" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <select name="dropdown">
@@ -42,13 +36,20 @@
                         <input type="text" name="Importer" placeholder="Введите инфо о ИМПОРТЕРЕ">
                         <input type="text" name="contract" placeholder="Введите Контракт">
                         <input type="text" name="comment" placeholder="Введите Комментарий">
-                        <input type="number" name="number_packing_master" placeholder="Кол-во Мастер-Упковок">
-                        <input type="number" name="number_packing" placeholder="Кол-во Упковок">
-                        <input type="file" name="file_input" id="fileInput">
-                        <button type="submit" id="submitButton">Отправить</button>
+
+                        <input type="number" name="number_mark_packing" placeholder="Кол-во Мешков">
+                        <input type="number" name="number_mark_packing_count" placeholder="Кол-во М-У в Мешке">
+
+                        <input type="number" name="number_packing_master" placeholder="Кол-во Мастер-Упаковок">
+                        <input type="number" name="number_packing_master_count" placeholder="Кол-во Упаковок в Мастер-Упаковке">
+
+                        <input type="number" name="number_packing" placeholder="Кол-во Упаковок">
+                        <input type="number" name="number_packing_count" placeholder="Кол-во Товара в Упаковке">
+
+                        <input class="file-input" type="file" name="file_input" id="fileInput">
+                        <button class="submit-btn" type="submit" id="submitButton">Отправить</button>
                     </form>
                 </div>
-
             </div>
             <!-- /Orders-->
         </div>
