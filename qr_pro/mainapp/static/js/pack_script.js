@@ -31,8 +31,17 @@ async function sendBarcodeValue(value) {
     }
 
     if (responseData.is_status === 1) {
-        packId = responseData.pack_Info.id;
-        window.location.href = `/packaging/${packId}/`;
+        if (responseData.is_type === '01') {
+            packId = responseData.pack_Info.id;
+            window.location.href = `/packaging/${responseData.is_type}/${packId}/`;
+        }else if (responseData.is_type === '02'){
+            packId = responseData.pack_Info.id;
+            window.location.href = `/packaging/${responseData.is_type}/${packId}/`;
+        }else if (responseData.is_type === '03'){
+            packId = responseData.pack_Info.id;
+            window.location.href = `/packaging/${responseData.is_type}/${packId}/`;
+        }
+
       } else {
       // Код для случая '0'
       }

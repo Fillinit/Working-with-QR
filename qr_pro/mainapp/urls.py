@@ -12,9 +12,13 @@ urlpatterns = [
     path('orders/save', views.orders_save, name='orders_save'),
 
     path('packaging/', views.packaging, name='packaging'),
-    path('packaging/<int:pack_id>/', views.pack_more, name='pack_more'),
+    path('packaging/<str:type_id>/<int:pack_id>/', views.pack_more, name='pack_more'),
     path('packaging/api/scan/', views.scan_pack, name='scan_pack'),
     path('pro/packaging/api/scan/', views.scan_pro_pack, name='scan_prod_pack'),
+
+    path('stock/', views.stock, name='stock'),
+    path('stock/<int:stock_id>/', views.stock_more, name='stock_more'),
+    path('pro/stock/api/scan/', views.stock_api, name='stock_api'),
 
     path('operations/', views.operations, name='operations'),
     path('operations/<int:operation_id>/', views.operations_more, name='operations_more'),

@@ -259,6 +259,17 @@
                         </div>
                     </div>
                     <div class="content-bar__items-print content-bar__item">
+                        <div class="content-master__settings">
+                        <form method="post" action="{% url 'mainapp:print_pdf' %}">
+                            <input type="hidden" name="print_km_all" value="all">
+                            {% for package in marking %}
+                            <input type="hidden" name="marking_id" value="{{ mark_Info.id }}">
+                            <input type="hidden" name="nameFile_{{ package.pk }}" class="name_file" value="{{ package.gtin }}">
+                            {% endfor %}
+                            {% csrf_token %}
+                            <button class="btn" type="submit">Потерянное</button>
+                        </form>
+                        </div>
                         <form method="post" action="{% url 'mainapp:print_pdf' %}">
                         <div class="content-print__settings">
                                 {% csrf_token %}
@@ -314,7 +325,7 @@
                         </div>
                         </form>
                         <div class="content-bar__tableinfo">
-                            <div>Кол-во: {{ v_art }}</div>
+                            <div>Кол-во: {{ marking|length }}</div>
                         </div>
                     </div>
                     <div class="content-bar__items-pack content-bar__item">
@@ -358,7 +369,7 @@
                                         <td class="width-10px">
                                             <input type="checkbox" class="checkbox-select_2" name="selected_checkboxes_2" value="{{package.file_name}}">
                                         </td>
-                                        <td><span><a href="{% url 'mainapp:pack_more' package.id %}">{{ package.spec }}</a></span></td>
+                                        <td><span><a href="{% url 'mainapp:pack_more' '01' package.id %}">{{ package.spec }}</a></span></td>
                                         <td><span>{{ package.sscc }}</span></td>
                                         <td><span>{{ package.count }}</span></td>
                                         {% if package.difference == package.count %}

@@ -10,7 +10,7 @@ tabs.forEach((tab, index) => {
     all_content[index].classList.add('active');
     })
 
-    
+
 })
 
 
@@ -26,7 +26,7 @@ tabs2.forEach((tab, index) => {
     all_content2[index].classList.add('active');
     })
 
-    
+
 })
 // end of tabs
 
@@ -179,7 +179,7 @@ function removeFromPageList(number) {
 
 
 async function sendBarcodeValue(value) {
-  const url = '/pro/packaging/api/scan/';
+  const url = '/pro/stock/api/scan/';
 
   const pack_id = document.getElementById('packInfo').textContent;
   const last_page = document.querySelector('.last_page').value;

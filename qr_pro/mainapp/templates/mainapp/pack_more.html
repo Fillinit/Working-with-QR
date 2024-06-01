@@ -21,7 +21,7 @@
                 <div class="pack-bar__code">
                     <div class="pack-bar__code-numbers">
                         <span>Упаковка</span>
-                        <p id="packInfo">{{ pack_Info.gtin }}</p>
+                        <p id="packInfo">{{ is_type }}_{{ pack_Info.gtin }}</p>
                     </div>
                     <div class="pack-bar__code-btns">
                         <button class="btn"><img src="{% static 'img/edit.svg' %}" alt="edit"></button>
@@ -136,11 +136,11 @@
                                     </div>
                                 </td>
                                 {% if package.difference == 0 %}
-                                <td class="bg-green sscc"><a href="{% url 'mainapp:pack_more' package.id %}">{{ package.SSCC }}</a></td>
+                                <td class="bg-green sscc"><a href="{% url 'mainapp:pack_more' is_type package.id %}">{{ package.SSCC }}</a></td>
                                 <td class="bg-green">{{package.count}}</td>
                                 <td class="bg-green difference"><span>{{package.difference}}</span></td>
                                 {% else %}
-                                <td class="sscc"><a href="{% url 'mainapp:pack_more' package.id %}">{{ package.SSCC }}</a></td>
+                                <td class="sscc"><a href="{% url 'mainapp:pack_more' is_type package.id %}">{{ package.SSCC }}</a></td>
                                 <td>{{package.count}}</td>
                                 <td class="difference"><span>{{package.difference}}</span></td>
                                 {% endif %}

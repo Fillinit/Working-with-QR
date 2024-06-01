@@ -14,7 +14,26 @@ class marking_Info(models.Model):
     def __str__(self):
         return self.name
 
+class bag_Info(models.Model):
+    STATUS_CHOICES = (
+        ('0', 'Поступление'),
+        ('1', "Вывоз"),
+        ('2', 'Цех'),
+    )
+    marking = models.ForeignKey(marking_Info, on_delete=models.CASCADE, verbose_name='Маркировка', null=True,
+                                blank=True)
+    pro_count = models.IntegerField(verbose_name='Кол-во мастер-упаковок', null=True, blank=True)
+    articul = models.CharField(max_length=200, verbose_name='Артикул', null=True, blank=True)
+    gtin = models.CharField(max_length=200, verbose_name='GTIN', null=True, blank=True)
+    status = models.BooleanField(verbose_name='СТАТУС[Отправлено]', null=True, blank=True, default=0)
+    file_name = models.CharField(max_length=200, verbose_name='Наименование файла', null=True, blank=True)
+    is_stock = models.CharField(max_length=2, choices=STATUS_CHOICES, verbose_name='СТАТУС Склада', default='2')
+    class Meta:
+        verbose_name = 'Мешок'
+        verbose_name_plural = 'Информация о мешках'
 
+    def __str__(self):
+        return self.marking.name
 class pack_master_Info(models.Model):
     STATUS_CHOICES = (
         ('0', 'Пустой'),
@@ -22,6 +41,9 @@ class pack_master_Info(models.Model):
         ('2', 'Неполный'),
     )
     marking = models.ForeignKey(marking_Info, on_delete=models.CASCADE, verbose_name='Маркировка', null=True, blank=True)
+    bag = models.ForeignKey(bag_Info, on_delete=models.CASCADE, verbose_name='Мешки', null=True, blank=True)
+
+    pro_count = models.IntegerField(verbose_name='Кол-во упаковок', null=True, blank=True)
     articul = models.CharField(max_length=200, verbose_name='Артикул', null=True, blank=True)
     gtin = models.CharField(max_length=200, verbose_name='GTIN', null=True, blank=True)
     size = models.CharField(max_length=200, verbose_name='size', null=True, blank=True)
@@ -51,11 +73,12 @@ class package_Info(models.Model):
         ('2', 'Неполный'),
     )
     marking = models.ForeignKey(marking_Info, on_delete=models.CASCADE, verbose_name='Маркировка', null=True, blank=True)
+    bag = models.ForeignKey(bag_Info, on_delete=models.CASCADE, verbose_name='Мешки', null=True, blank=True)
     pack_mast = models.ForeignKey(pack_master_Info, on_delete=models.CASCADE, verbose_name='Мастер упаковки', null=True, blank=True)
     gtin = models.CharField(max_length=200, verbose_name='GTIN', null=True, blank=True)
-
     contract = models.CharField(max_length=200, verbose_name='КОНТРАКТ', null=True, blank=True)
     date = models.DateTimeField(auto_now_add=True, verbose_name="ДАТА", null=True, blank=True)
+    pro_count = models.IntegerField(verbose_name='Кол-во товара', null=True, blank=True)
     status = models.CharField(max_length=2, choices=STATUS_CHOICES, verbose_name='СТАТУС', default='0')
 
     file_name = models.CharField(max_length=200, verbose_name='Наименование файла', null=True, blank=True)
@@ -69,13 +92,14 @@ class package_Info(models.Model):
 
 class product_Info(models.Model):
     marking = models.ForeignKey(marking_Info, on_delete=models.CASCADE, verbose_name='Маркировка', null=True, blank=True)
+    bag = models.ForeignKey(bag_Info, on_delete=models.CASCADE, verbose_name='Мешки', null=True, blank=True)
     pack_mast = models.ForeignKey(pack_master_Info, on_delete=models.CASCADE, verbose_name='Мастер упаковки', null=True, blank=True)
     package = models.ForeignKey(package_Info, on_delete=models.CASCADE, verbose_name='Упаковки',
                                 related_name='products', null=True, blank=True)
 
     file_name = models.CharField(max_length=200, verbose_name='Наименование файла', null=True, blank=True)
     date = models.DateTimeField(auto_now_add=True, verbose_name="ДАТА", null=True, blank=True)
-    gtin = models.CharField(max_length=200, verbose_name='GTIN', null=True, blank=True)
+    gtin = models.CharField(max_length=500, verbose_name='GTIN', null=True, blank=True)
     status = models.BooleanField(verbose_name='СТАТУС', null=True, blank=True, default=0)
     is_print = models.BooleanField(verbose_name='Печать',null=True, blank=True, default=0)
     page = models.CharField(max_length=200, verbose_name='Страница', null=True, blank=True)
